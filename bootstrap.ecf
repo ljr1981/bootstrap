@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="bootstrap" uuid="5CCD78E3-AEAE-3D11-422A-00006C6FD763" library_target="bootstrap">
+	<description>bootstrap implementation</description>
+	<target name="bootstrap">
+		<root all_classes="true"/>
+		<option warning="true" void_safety="transitional" syntax="provisional">
+			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
+		</option>
+		<setting name="console_application" value="true"/>
+		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
+		<library name="framework" location="$GITHUB\framework\framework.ecf"/>
+		<library name="html" location="C:\Users\LJR19\Documents\GitHub\html\html.ecf"/>
+		<library name="lex" location="$ISE_LIBRARY\library\lex\lex-safe.ecf"/>
+		<library name="parse" location="$ISE_LIBRARY\library\parse\parse-safe.ecf"/>
+		<library name="test_extension" location="$GITHUB\test_extension\test_extension.ecf"/>
+		<cluster name="bootstrap" location=".\" recursive="true">
+			<file_rule>
+				<exclude>/.git$</exclude>
+				<exclude>/.svn$</exclude>
+				<exclude>/CVS$</exclude>
+				<exclude>/EIFGENs$</exclude>
+				<exclude>tests</exclude>
+			</file_rule>
+		</cluster>
+	</target>
+	<target name="test" extends="bootstrap">
+		<description>bootstrap Tests</description>
+		<root class="ANY" feature="default_create"/>
+		<file_rule>
+			<exclude>/.git$</exclude>
+			<exclude>/.svn$</exclude>
+			<exclude>/CVS$</exclude>
+			<exclude>/EIFGENs$</exclude>
+			<include>tests</include>
+		</file_rule>
+		<option profile="false">
+		</option>
+		<setting name="console_application" value="false"/>
+		<library name="testing" location="$ISE_LIBRARY\library\testing\testing-safe.ecf"/>
+		<cluster name="tests" location=".\tests\" recursive="true"/>
+	</target>
+</system>
