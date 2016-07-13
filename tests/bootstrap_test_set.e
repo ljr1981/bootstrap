@@ -102,7 +102,24 @@ feature -- Test routines
 			l_hx: BS_HX_AND_SMALL
 		do
 			create l_hx.make_with_primary_and_secondary_text (1, "primary_text", "secondary_text")
-			assert_strings_equal ("primary_secondary", "<h1>primary_text<small>secondary_text</small></h1>", l_hx.html_out)
+			assert_strings_equal ("primary_secondary", "<h1>primary_text<small> secondary_text</small></h1>", l_hx.html_out)
+		end
+
+	alert_tests
+		local
+			l_alert: BS_ALERT
+		do
+			create l_alert.make_danger ("my_alert_message", False)
+			assert_strings_equal ("danger", "<div class=%"alert alert-danger%"><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
+			create l_alert.make_info ("my_alert_message", False)
+			assert_strings_equal ("info", "<div class=%"alert alert-info%"><strong>Information! </strong>my_alert_message</div>", l_alert.html_out)
+			create l_alert.make_success ("my_alert_message", False)
+			assert_strings_equal ("info", "<div class=%"alert alert-success%"><strong>Success! </strong>my_alert_message</div>", l_alert.html_out)
+			create l_alert.make_warning ("my_alert_message", False)
+			assert_strings_equal ("info", "<div class=%"alert alert-warning%"><strong>Warning! </strong>my_alert_message</div>", l_alert.html_out)
+
+			create l_alert.make_danger ("my_alert_message", True)
+			assert_strings_equal ("danger_closable", "<div class=%"alert alert-danger%"><a class=%"close%"  aria-label=%"close%"  href=%"#%"  data-dismiss=%"alert%">&times;</a><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
 		end
 
 end
