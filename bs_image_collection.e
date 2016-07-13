@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 
 note
 	design_intent: "[
-		Your_text_goes_here
+		A simple collection of images with captions in wells.
 		]"
 
 end
