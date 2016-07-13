@@ -10,12 +10,42 @@ inherit
 	BS_DIV
 
 create
+	make_for_all,
 	make_for_phone,
 	make_for_tablet,
 	make_for_desktop,
 	make_for_large_desktop
 
 feature {NONE} -- Initialization
+
+	make_for_all (a_xs_span, a_sm_span, a_md_span, a_lg_span: INTEGER)
+			--
+		local
+			l_template: STRING
+		do
+			default_create
+			create l_template.make_empty
+			if a_xs_span > 0 then
+				l_template.append_string_general ("col-xs-")
+				l_template.append_string_general (a_xs_span.out)
+			end
+			if a_sm_span > 0 then
+				l_template.append_character (' ')
+				l_template.append_string_general ("col-sm-")
+				l_template.append_string_general (a_sm_span.out)
+			end
+			if a_md_span > 0 then
+				l_template.append_character (' ')
+				l_template.append_string_general ("col-md-")
+				l_template.append_string_general (a_md_span.out)
+			end
+			if a_lg_span > 0 then
+				l_template.append_character (' ')
+				l_template.append_string_general ("col-lg-")
+				l_template.append_string_general (a_lg_span.out)
+			end
+			set_class_names (l_template)
+		end
 
 	make_for_phone (a_span: INTEGER)
 			-- `make_for_phone' and `a_span' number of columns.

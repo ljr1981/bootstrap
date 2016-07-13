@@ -51,6 +51,13 @@ feature -- Test routines
 		do
 			create l_item.make_for_phone (<<4,4,4>>)
 			assert_strings_equal ("phone_4_4_4", "<div class=%"row%"><div class=%"col-xs-4%"></div><div class=%"col-xs-4%"></div><div class=%"col-xs-4%"></div></div>", l_item.html_out)
+
+			create l_item.make_for_all (<<[1,3,5,7], [2,4,6,8]>>) -- generate all spans as they are all > 0
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-sm-3 col-md-5 col-lg-7%"></div><div class=%"col-xs-2 col-sm-4 col-md-6 col-lg-8%"></div></div>", l_item.html_out)
+			create l_item.make_for_all (<<[1,0,0,7], [0,4,6,0]>>) -- only generate class names for spans > 0
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-lg-7%"></div><div class=%" col-sm-4 col-md-6%"></div></div>", l_item.html_out)
+			create l_item.make_for_all (<<[0,6,4,2], [0,6,4,2]>>) -- only generate class names for spans > 0
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"></div><div class=%" col-sm-6 col-md-4 col-lg-2%"></div></div>", l_item.html_out)
 		end
 
 	image_tests

@@ -10,12 +10,23 @@ inherit
 	BS_DIV
 
 create
+	make_for_all,
 	make_for_phone,
 	make_for_tablet,
 	make_for_desktop,
 	make_for_large_desktop
 
 feature {NONE} -- Initialize
+
+	make_for_all (a_spans: ARRAY [TUPLE [xs, sm, md, lg: INTEGER]])
+		do
+			build_row
+			across
+				a_spans as ic
+			loop
+				make (create {BS_COLUMN}.make_for_all (ic.item.xs, ic.item.sm, ic.item.md, ic.item.lg))
+			end
+		end
 
 	make_for_phone (a_spans: ARRAY [INTEGER])
 			-- `make_for_phone'.
