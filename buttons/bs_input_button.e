@@ -1,13 +1,13 @@
 note
 	description: "[
-		Representation of an effected {BS_LINK_BUTTON}.
+		Representation of an effected {BS_INPUT_BUTTON}.
 		]"
 
 class
-	BS_LINK_BUTTON
+	BS_INPUT_BUTTON
 
 inherit
-	HTML_A
+	HTML_INPUT
 		redefine
 			default_create
 		end
@@ -34,9 +34,9 @@ inherit
 
 create
 	make_with_text,
-	make_with_text_and_link
+	make_submit_with_text
 
-feature {NONE} -- Initialziation
+feature {NONE} -- Initialization
 
 	make_with_text (a_text, a_style, a_size: STRING)
 			-- <Precursor>
@@ -44,31 +44,31 @@ feature {NONE} -- Initialziation
 			valid_style: button_styles_list.has (a_style)
 			valid_size: button_sizes_list.has (a_size)
 		do
-			make_with_text_and_link (a_text, a_style, a_size, "#")
+			make (a_text, a_style, a_size)
+			set_type ("button")
 		end
 
-	make_with_text_and_link (a_text, a_style, a_size, a_link: STRING)
-			--
-		require
+	make_submit_with_text (a_text, a_style, a_size: STRING)
+			-- <Precursor>
+		require else
 			valid_style: button_styles_list.has (a_style)
 			valid_size: button_sizes_list.has (a_size)
-		local
-			l_class_string: STRING
+		do
+			make (a_text, a_style, a_size)
+			set_type ("submit")
+		end
+
+feature {NONE} -- Initialization: Helpers
+
+	make (a_text, a_style, a_size: STRING)
+			--
+		require else
+			valid_style: button_styles_list.has (a_style)
+			valid_size: button_sizes_list.has (a_size)
 		do
 			default_create
-			set_text_content (a_text)
-			set_href (a_link)
-			l_class_string := "btn"
-			if not a_style.is_empty then
-				l_class_string.append_character (' ')
-				l_class_string.append_string_general (a_style)
-			end
-			if not a_size.is_empty then
-				l_class_string.append_character (' ')
-				l_class_string.append_string_general (a_size)
-			end
-			set_class_names (l_class_string)
-			set_role ("button")
+			set_value (a_text)
+			set_class_names (class_names (a_style, a_size))
 		end
 
 	default_create
@@ -95,7 +95,7 @@ feature {NONE} -- Implementation
 
 feature -- Access
 
-	item: HTML_A
+	item: HTML_INPUT
 			-- Reference to `item' even if in container(s).
 		attribute
 			Result := Current

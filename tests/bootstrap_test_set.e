@@ -122,12 +122,34 @@ feature -- Test routines
 			assert_strings_equal ("danger_closable", "<div class=%"alert alert-danger%"><a class=%"close%"  aria-label=%"close%"  href=%"#%"  data-dismiss=%"alert%">&times;</a><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
 		end
 
-	button_tests
+	link_button_tests
 		local
 			l_button: BS_LINK_BUTTON
 		do
 			create l_button.make_with_text_and_link ("my_text", {BS}.btn_style_danger, {BS}.btn_size_lg, "www.google.com")
 			assert_strings_equal ("link_button", "<a class=%"btn btn-danger btn-lg%"  href=%"www.google.com%"  role=%"button%">my_text</a>", l_button.html_out)
+		end
+
+	button_button_tests
+		local
+			l_button: BS_BUTTON_BUTTON
+		do
+			create l_button.make_with_text ("my_button_text", {BS}.btn_style_danger, {BS}.btn_size_lg)
+			assert_strings_equal ("button_button", "<button class=%"btn btn-danger btn-lg%"  type=%"button%">my_button_text</button>", l_button.html_out)
+			create l_button.make_with_text ("my_button_text", {BS}.btn_style_danger, {BS}.btn_size_empty)
+			assert_strings_equal ("button_button", "<button class=%"btn btn-danger%"  type=%"button%">my_button_text</button>", l_button.html_out)
+		end
+
+	input_button_tests
+			--<input type="button" class="btn btn-info" value="Input Button">
+			--<input type="submit" class="btn btn-info" value="Submit Button">
+		local
+			l_button: BS_INPUT_BUTTON
+		do
+			create l_button.make_with_text ("my_input_button", {BS}.btn_style_info, {BS}.btn_size_sm)
+			assert_strings_equal ("input_button_standard", "<input class=%"btn btn-info btn-sm%"  type=%"button%"  value=%"my_input_button%"></input>", l_button.html_out)
+			create l_button.make_submit_with_text ("my_submit_button", {BS}.btn_style_info, {BS}.btn_size_sm)
+			assert_strings_equal ("input_button_submit", "<input class=%"btn btn-info btn-sm%"  type=%"submit%"  value=%"my_submit_button%"></input>", l_button.html_out)
 		end
 
 end

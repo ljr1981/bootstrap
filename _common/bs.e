@@ -17,6 +17,7 @@ feature -- Constants
 feature -- Constants: Buttons
 
 		-- Styles
+	btn_style_empty: STRING = ""
 	btn_style_default: STRING = "btn-default"
 	btn_style_primary: STRING = "btn-primary"
 	btn_style_success: STRING = "btn-success"
@@ -28,7 +29,7 @@ feature -- Constants: Buttons
 	button_styles_list: ARRAY [STRING]
 		once
 			Result := <<
-				"",
+				btn_style_empty,
 				btn_style_default,
 				btn_style_primary,
 				btn_style_success,
@@ -40,6 +41,7 @@ feature -- Constants: Buttons
 		end
 
 		-- Sizes
+	btn_size_empty: STRING = ""
 	btn_size_lg: STRING = "btn-lg"
 	btn_size_md: STRING = "btn-md"
 	btn_size_sm: STRING = "btn-sm"
@@ -48,7 +50,7 @@ feature -- Constants: Buttons
 	button_sizes_list: ARRAY [STRING]
 		once
 			Result := <<
-				"",
+				btn_size_empty,
 				btn_size_lg,
 				btn_size_md,
 				btn_size_sm,
