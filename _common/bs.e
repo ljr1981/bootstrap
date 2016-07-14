@@ -58,6 +58,17 @@ feature -- Constants: Buttons
 				>>
 		end
 
+feature -- Constants: Images
+
+	img_rounded: INTEGER = 1
+	img_thumb: INTEGER = 2
+	img_circle: INTEGER = 3
+
+	image_style_range: INTEGER_INTERVAL
+		once
+			Result := 1 |..| 3
+		end
+
 invariant
 	closable_not_closable: is_closable /= is_not_closable
 	bleed_or_not_bleed: bleed_to_edge /= not_bleed_to_edge

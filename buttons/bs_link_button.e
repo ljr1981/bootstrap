@@ -52,8 +52,6 @@ feature {NONE} -- Initialziation
 		require
 			valid_style: button_styles_list.has (a_style)
 			valid_size: button_sizes_list.has (a_size)
-		local
-			l_class_string: STRING
 		do
 			default_create
 			set_text_content (a_text)

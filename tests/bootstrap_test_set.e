@@ -91,8 +91,8 @@ feature -- Test routines
 			l_collection: BS_IMAGE_COLLECTION
 		do
 			create l_collection.make_with_spans_images ([0,6,4,2], 125, <<
-				["src.png", "alt_text", "caption_text"],
-				["src_2.png", "alt_text_2", "caption_text_2"]
+				["src.png", "alt_text", "caption_text", {BS}.img_circle, Void],
+				["src_2.png", "alt_text_2", "caption_text_2", {BS}.img_circle, Void]
 				>>)
 			assert_strings_equal ("collection_1", "<div><div class=%"well%"><div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"><div class=%"well%"><img class=%"img-circle%"  alt=%"alt_text%"  height=%"125%"  src=%"src.png%"  width=%"125%"></img><p>caption_text</p></div></div><div class=%" col-sm-6 col-md-4 col-lg-2%"><div class=%"well%"><img class=%"img-circle%"  alt=%"alt_text_2%"  height=%"125%"  src=%"src_2.png%"  width=%"125%"></img><p>caption_text_2</p></div></div></div></div></div>", l_collection.html_out)
 		end
