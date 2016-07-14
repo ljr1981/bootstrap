@@ -8,6 +8,9 @@ class
 
 inherit
 	HTML_IMG
+		redefine
+			default_create
+		end
 
 	HTML_HEAD_ITEM_GENERATOR
 		undefine
@@ -55,10 +58,19 @@ feature {NONE} -- Initialization
 
 	make (a_src, a_alt: STRING; a_height, a_width: INTEGER)
 		do
+			default_create
 			set_src (a_src)
 			set_alt (a_alt)
 			set_height (a_height.out)
 			set_width (a_width.out)
+		end
+
+	default_create
+			-- <Precursor>
+		do
+			css_file_links.force (create {HTML_LINK}.make_as_css_file_link ("http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"))
+			javascript_file_scripts.force (create {HTML_SCRIPT}.make_with_javascript_file_name ("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"))
+			javascript_file_scripts.force (create {HTML_SCRIPT}.make_with_javascript_file_name ("http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"))
 		end
 
 feature {NONE} -- Implementation

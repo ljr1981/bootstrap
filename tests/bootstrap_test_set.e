@@ -33,15 +33,15 @@ feature -- Test routines
 		local
 			l_item: BS_JUMBOTRON
 		do
-			create l_item.make_center (True)
+			create l_item.make_content_centered (True)
 			assert_strings_equal ("center", "<div class=%"jumbotron text-center%"></div>", l_item.html_out)
-			create l_item.make_center (False)
+			create l_item.make_content_centered (False)
 			assert_strings_equal ("center", "<div class=%"container%"><div class=%"jumbotron text-center%"></div></div>", l_item.html_out)
 
-			create l_item.make_left (True)
+			create l_item.make_content_left_justified (True)
 			assert_strings_equal ("center", "<div class=%"jumbotron text-left%"></div>", l_item.html_out)
 
-			create l_item.make_right (True)
+			create l_item.make_content_right_justified (True)
 			assert_strings_equal ("center", "<div class=%"jumbotron text-right%"></div>", l_item.html_out)
 		end
 
@@ -109,17 +109,25 @@ feature -- Test routines
 		local
 			l_alert: BS_ALERT
 		do
-			create l_alert.make_danger ("my_alert_message", False)
+			create l_alert.make_danger ("my_alert_message", {BS}.is_not_closable)
 			assert_strings_equal ("danger", "<div class=%"alert alert-danger%"><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
-			create l_alert.make_info ("my_alert_message", False)
+			create l_alert.make_info ("my_alert_message", {BS}.is_not_closable)
 			assert_strings_equal ("info", "<div class=%"alert alert-info%"><strong>Information! </strong>my_alert_message</div>", l_alert.html_out)
-			create l_alert.make_success ("my_alert_message", False)
+			create l_alert.make_success ("my_alert_message", {BS}.is_not_closable)
 			assert_strings_equal ("info", "<div class=%"alert alert-success%"><strong>Success! </strong>my_alert_message</div>", l_alert.html_out)
-			create l_alert.make_warning ("my_alert_message", False)
+			create l_alert.make_warning ("my_alert_message", {BS}.is_not_closable)
 			assert_strings_equal ("info", "<div class=%"alert alert-warning%"><strong>Warning! </strong>my_alert_message</div>", l_alert.html_out)
 
-			create l_alert.make_danger ("my_alert_message", True)
+			create l_alert.make_danger ("my_alert_message", {BS}.is_closable)
 			assert_strings_equal ("danger_closable", "<div class=%"alert alert-danger%"><a class=%"close%"  aria-label=%"close%"  href=%"#%"  data-dismiss=%"alert%">&times;</a><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
+		end
+
+	button_tests
+		local
+			l_button: BS_LINK_BUTTON
+		do
+			create l_button.make_with_text_and_link ("my_text", {BS}.btn_style_danger, {BS}.btn_size_lg, "www.google.com")
+			assert_strings_equal ("link_button", "<a class=%"btn btn-danger btn-lg%"  href=%"www.google.com%"  role=%"button%">my_text</a>", l_button.html_out)
 		end
 
 end

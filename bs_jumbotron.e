@@ -10,23 +10,23 @@ inherit
 	BS_DIV
 
 create
-	make_center,
-	make_left,
-	make_right
+	make_content_centered,
+	make_content_left_justified,
+	make_content_right_justified
 
 feature {NONE} -- Initialization
 
-	make_center (a_to_edge: BOOLEAN)
+	make_content_centered (a_to_edge: BOOLEAN)
 		do
 			make ("center", a_to_edge)
 		end
 
-	make_left (a_to_edge: BOOLEAN)
+	make_content_left_justified (a_to_edge: BOOLEAN)
 		do
 			make ("left", a_to_edge)
 		end
 
-	make_right (a_to_edge: BOOLEAN)
+	make_content_right_justified (a_to_edge: BOOLEAN)
 		do
 			make ("right", a_to_edge)
 		end

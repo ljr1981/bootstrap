@@ -21,12 +21,7 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				new_a.set_href ("#")
-				last_new_a.set_class_names ("close")
-				last_new_a.set_data_dismiss ("alert")
-				last_new_a.set_aria_label ("close")
-				last_new_a.set_text_content ("&times;")
-				add_content (last_new_a)
+				add_content (closable_link)
 			end
 
 			set_class_names ("alert alert-success")
@@ -40,12 +35,7 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				new_a.set_href ("#")
-				last_new_a.set_class_names ("close")
-				last_new_a.set_data_dismiss ("alert")
-				last_new_a.set_aria_label ("close")
-				last_new_a.set_text_content ("&times;")
-				add_content (last_new_a)
+				add_content (closable_link)
 			end
 
 			set_class_names ("alert alert-info")
@@ -59,12 +49,7 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				new_a.set_href ("#")
-				last_new_a.set_class_names ("close")
-				last_new_a.set_data_dismiss ("alert")
-				last_new_a.set_aria_label ("close")
-				last_new_a.set_text_content ("&times;")
-				add_content (last_new_a)
+				add_content (closable_link)
 			end
 
 			set_class_names ("alert alert-warning")
@@ -78,12 +63,7 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				new_a.set_href ("#")
-				last_new_a.set_class_names ("close")
-				last_new_a.set_data_dismiss ("alert")
-				last_new_a.set_aria_label ("close")
-				last_new_a.set_text_content ("&times;")
-				add_content (last_new_a)
+				add_content (closable_link)
 			end
 
 			set_class_names ("alert alert-danger")
@@ -93,5 +73,16 @@ feature {NONE} -- Initialization
 			last_new_text.set_text_content (a_message)
 		end
 
+feature {NONE} -- Implementation
+
+	closable_link: HTML_A
+		do
+			Result := new_a
+			Result.set_href ("#")
+			Result.set_class_names ("close")
+			Result.set_data_dismiss ("alert")
+			Result.set_aria_label ("close")
+			Result.set_text_content ("&times;")
+		end
 
 end
