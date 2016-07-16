@@ -12,14 +12,6 @@ inherit
 			default_create
 		end
 
-	HTML_HEAD_ITEM_GENERATOR
-		undefine
-			default_create,
-			out
-		redefine
-			generated_script
-		end
-
 create
 	make_menu
 
@@ -144,20 +136,6 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 				last_new_a.add_content (l_span)
 			end
 			Result.add_content (last_new_a)
-		end
-
-feature {NONE} -- Implementation
-
-	hand_coded_script: STRING
-			-- <Precursor>
-		attribute
-			create Result.make_empty
-		end
-
-	generated_script: STRING
-			-- <Precursor>
-		attribute
-			create Result.make_empty
 		end
 
 feature -- Access
