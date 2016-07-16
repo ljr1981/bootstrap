@@ -47,15 +47,30 @@ feature {NONE} -- Initialization
 			default_create
 		end
 
-	add_nav_pads (a_host: HTML_TAG; a_nav_pads: ARRAY [ TUPLE [ link, text: STRING; dropdowns: ARRAY [TUPLE] ] ]; a_is_inverse: BOOLEAN)
+	add_nav_pads (a_host: HTML_TAG; a_nav_pads: ARRAY [TUPLE]; a_is_inverse: BOOLEAN)
+		local
+			l_pad: like nav_pad
+			l_link,
+			l_text: STRING
+			l_dropdowns: detachable ARRAY [TUPLE]
+			l_ul: HTML_UL
 		do
 			across
 				a_nav_pads as ic
 			loop
-				a_host.add_content (nav_pad (ic.item.link, ic.item.text, a_is_inverse))
-				if ic.item.dropdowns.count > 1 and then attached {ARRAY [ TUPLE [ STRING, STRING, ARRAY [TUPLE] ] ]} ic.item.dropdowns as al_dropdowns then
-					add_nav_pads (a_host, al_dropdowns, a_is_inverse)
+				check link: attached {STRING} ic.item [1] as al_item then l_link := al_item end
+				check text: attached {STRING} ic.item [2] as al_item then l_text := al_item end
+				if (ic.item.count = 3) and then attached {ARRAY [TUPLE]} ic.item [3] as al_dropdowns and then not al_dropdowns.is_empty then
+					l_dropdowns := al_dropdowns
 				end
+				l_pad := nav_pad (l_link, l_text, a_is_inverse, attached l_dropdowns)
+				if attached l_dropdowns as al_dropdowns then
+					create l_ul
+					l_ul.set_class_names ("dropdown-menu")
+					l_pad.add_content (l_ul)
+					add_nav_pads (l_ul, al_dropdowns, a_is_inverse)
+				end
+				a_host.add_content (l_pad)
 			end
 		end
 
@@ -95,49 +110,40 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 			Result.set_class_names ("nav navbar-nav")
 		end
 
-	nav_pad (a_link, a_text: STRING; a_is_active: BOOLEAN): HTML_LI
+	nav_pad (a_link, a_text: STRING; a_is_active, a_is_dropdown: BOOLEAN): HTML_LI
 			-- <li><a href="#">Page 1-1</a></li>
+		local
+			l_class_names: STRING
+			l_span: HTML_SPAN
 		do
 			create Result
+			create l_class_names.make_empty
 			if a_is_active then
-				Result.set_class_names ("active")
+				l_class_names.append_string_general ("active")
 			end
+			if a_is_dropdown then
+				l_class_names.append_character (' ')
+				l_class_names.append_string_general ("dropdown")
+			end
+			l_class_names.adjust
 
-			new_a.set_text_content (a_text)
+			if not l_class_names.is_empty then
+				Result.set_class_names (l_class_names)
+			end
+			new_a.add_content (create {HTML_TEXT}.make_with_text (a_text))
 			if a_link.is_empty then
 				last_new_a.set_href ("#")
 			else
 				last_new_a.set_href (a_link)
 			end
-			Result.add_content (last_new_a)
-		end
-
-	nav_pad_dropdown (a_link, a_text: STRING; a_nav_pads: ARRAY [HTML_LI]): HTML_LI
-			-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-				-- <ul class="dropdown-menu">
-		local
-			l_link: HTML_A
-			l_span: HTML_SPAN
-			l_list: HTML_UL
-		do
-			create Result
-			Result.set_class_names ("dropdown")
-			create l_link.make_with_link_and_text (a_link, a_text)
-			l_link.set_class_names ("dropdown-toggle")
-			l_link.set_data_toggle ("dropdown")
-			create l_span
-			l_span.set_class_names ("caret")
-			l_link.add_content (l_span)
-			Result.add_content (l_link)
-
-			create l_list
-			l_list.set_class_names ("dropdown-menu")
-			across
-				a_nav_pads as ic
-			loop
-				l_list.add_content (ic.item)
+			if a_is_dropdown then
+				last_new_a.set_class_names ("dropdown-toggle")
+				last_new_a.set_data_toggle ("dropdown")
+				create l_span
+				l_span.set_class_names ("caret")
+				last_new_a.add_content (l_span)
 			end
-			Result.add_content (l_list)
+			Result.add_content (last_new_a)
 		end
 
 feature {NONE} -- Implementation
