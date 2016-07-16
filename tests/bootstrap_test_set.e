@@ -152,6 +152,22 @@ feature -- Test routines
 			assert_strings_equal ("input_button_submit", "<input class=%"btn btn-info btn-sm%"  type=%"submit%"  value=%"my_submit_button%"></input>", l_button.html_out)
 		end
 
+	navbar_tests
+			--
+		local
+			l_bar: BS_NAVBAR
+			l_item: HTML_LI
+		do
+			create l_bar.make_menu (<<>>, {BS}.Navbar_is_default, Void)
+			assert_strings_equal ("nav_pad", "<li><a href=%"#%">Page 1-1</a></li>", l_bar.nav_pad ("", "Page 1-1", {BS}.is_not_active).html_out)
+
+			l_item := l_bar.nav_pad_dropdown ("#", "Page 1", <<>>)
+			assert_strings_equal ("nav_dropdown", "<li class=%"dropdown%"><a class=%"dropdown-toggle%"  href=%"#%"  data-toggle=%"dropdown%">Page 1<span class=%"caret%"></span></a><ul class=%"dropdown-menu%"></ul></li>", l_item.html_out)
+
+			create l_bar.make_menu (<<["#1", "Option 1", <<>>], ["#2", "Option 2", <<>>]>>, {BS}.Navbar_is_default, Void)
+			assert_strings_equal ("nav_make_menu_1", "<nav class=%"navbar navbar-default%"><div class=%"container-fluid%"><ul class=%"nav navbar-nav%"><li><a href=%"#1%">Option 1</a></li><li><a href=%"#2%">Option 2</a></li></ul></div></nav>", l_bar.html_out)
+		end
+
 end
 
 

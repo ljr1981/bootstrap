@@ -69,6 +69,16 @@ feature -- Constants: Images
 			Result := 1 |..| 3
 		end
 
+feature -- Constants: Navbars
+
+	is_active: BOOLEAN = True
+	is_not_active: BOOLEAN = False
+
+	Navbar_is_inverse: BOOLEAN = True
+	Navbar_is_not_inverse: BOOLEAN = False
+	Navbar_is_default: BOOLEAN = False
+	Navbar_is_not_default: BOOLEAN = True
+
 invariant
 	closable_not_closable: is_closable /= is_not_closable
 	bleed_or_not_bleed: bleed_to_edge /= not_bleed_to_edge
