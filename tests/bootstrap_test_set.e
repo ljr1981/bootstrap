@@ -156,7 +156,6 @@ feature -- Test routines
 			--
 		local
 			l_bar: BS_NAVBAR
-			l_item: HTML_LI
 		do
 			create l_bar.make_menu (<<>>, {BS}.Navbar_is_default, Void)
 			assert_strings_equal ("nav_pad", "<li><a href=%"#%">Page 1-1</a></li>", l_bar.nav_pad ("", "Page 1-1", {BS}.is_not_active, False).html_out)
