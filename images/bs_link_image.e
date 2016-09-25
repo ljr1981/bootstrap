@@ -8,6 +8,11 @@ class
 
 inherit
 	HTML_A
+		undefine
+			default_create
+		end
+
+	BS_ANY
 
 create
 	make_with_rounded_image,

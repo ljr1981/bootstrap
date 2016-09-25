@@ -8,13 +8,12 @@ class
 
 inherit
 	HTML_BUTTON
-		redefine
+		undefine
 			default_create
 		end
 
 	BS_BUTTON
 		undefine
-			default_create,
 			out
 		end
 
@@ -25,30 +24,29 @@ inherit
 		end
 
 create
-	make_with_text
+	make_with_text,
+	make_with_col_specs
 
 feature {NONE} -- Initialization
 
-	make_with_text (a_text, a_style, a_size: STRING)
+	make_with_text (a_text: STRING; a_style_size: TUPLE [style, size: STRING])
 			-- <Precursor>
 		require else
-			valid_style: button_styles_list.has (a_style)
-			valid_size: button_sizes_list.has (a_size)
+			valid_style: button_styles_list.has (a_style_size.style)
+			valid_size: button_sizes_list.has (a_style_size.size)
 		do
 			default_create
 			set_text_content (a_text)
-			set_class_names (class_names (a_style, a_size))
+			set_class_names (class_names (a_style_size.style, a_style_size.size))
 			set_type ("button")
 		end
 
-feature {NONE} -- Initialization: Helpers
-
-	default_create
-			-- <Precursor>
+	make_with_col_specs (a_text: STRING; a_style: STRING; a_size_span: ARRAY [TUPLE [size: STRING; span: INTEGER]])
+			--
 		do
-			css_file_links.force (create {HTML_LINK}.make_as_css_file_link ("http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"))
-			javascript_file_scripts.force (create {HTML_SCRIPT}.make_with_javascript_file_name ("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"))
-			javascript_file_scripts.force (create {HTML_SCRIPT}.make_with_javascript_file_name ("http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"))
+			default_create
+			set_text_content (a_text)
+
 		end
 
 feature -- Access

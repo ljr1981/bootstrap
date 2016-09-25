@@ -7,7 +7,7 @@ class
 	BS_PANEL
 
 inherit
-	HTML_DIV
+	BS_DIV
 
 create
 	make,
@@ -23,6 +23,7 @@ feature {NONE} -- Initialization
 	make (a_content: detachable HTML_TAG)
 			--
 		do
+			default_create
 			initialize_outer_panel
 			initialize_inner_panel (a_content)
 		end
@@ -30,6 +31,7 @@ feature {NONE} -- Initialization
 	make_heading (a_text: STRING; a_content: detachable HTML_TAG)
 			--
 		do
+			default_create
 			initialize_outer_panel
 			add_header (a_text)
 			initialize_inner_panel (a_content)
@@ -38,6 +40,7 @@ feature {NONE} -- Initialization
 	make_footer (a_text: STRING; a_content: detachable HTML_TAG)
 			--
 		do
+			default_create
 			initialize_outer_panel
 			initialize_inner_panel (a_content)
 			add_footer (a_text)
@@ -46,6 +49,7 @@ feature {NONE} -- Initialization
 	make_heading_and_footer (a_heading: STRING; a_content: detachable HTML_TAG; a_footer: STRING)
 			--
 		do
+			default_create
 			initialize_outer_panel
 			add_header (a_heading)
 			initialize_inner_panel (a_content)
@@ -55,6 +59,7 @@ feature {NONE} -- Initialization
 	make_table (a_table: HTML_TABLE)
 			--
 		do
+			default_create
 			create inner_panel
 			set_class_names ("panel panel-default")
 			a_table.set_class_names ("table")
@@ -64,6 +69,7 @@ feature {NONE} -- Initialization
 	make_body_and_table (a_body: detachable HTML_TAG; a_table: HTML_TABLE)
 			--
 		do
+			default_create
 			if attached a_body as al_body then
 				make (al_body)
 			else
@@ -77,6 +83,7 @@ feature {NONE} -- Initialization
 	make_list (a_body: detachable HTML_TAG; a_list: HTML_UL)
 			--
 		do
+			default_create
 			if attached a_body as al_body then
 				make (al_body)
 			else
@@ -95,28 +102,6 @@ feature {NONE} -- Initialization
 			end
 			add_content (a_list)
 		end
-
---	make_video (a_body: detachable HTML_TAG; a_video: HTML_VIDEO; a_is_16_by_9: BOOLEAN)
---			--
---		local
---			l_div: HTML_DIV
---		do
---			if attached a_body as al_body then
---				make (al_body)
---			else
---				create inner_panel
---				initialize_outer_panel
---			end
---			a_video.set_class_names ("embed-responsive-item")
---			create l_div
---			if a_is_16_by_9 then
---				l_div.set_class_names ("embed-responsive embed-responsive-16by9")
---			else
---				l_div.set_class_names ("embed-responsive embed-responsive-4by3")
---			end
---			add_content (l_div)
---			l_div.add_content (a_video)
---		end
 
 	initialize_outer_panel
 			--

@@ -6,12 +6,20 @@ note
 deferred class
 	BS_BUTTON
 
+inherit
+	BS_ANY
+	
 feature {NONE} -- Initialization
 
-	make_with_text (a_text, a_style, a_size: STRING)
+	make_with_text (a_text: STRING; a_style_size: TUPLE [style, size: STRING])
 			--
 		require
 			handle_in_descendant: False
+		deferred
+		end
+
+	make_with_col_specs (a_text: STRING; a_style: STRING; a_size_span: ARRAY [TUPLE [size: STRING; span: INTEGER]])
+			--
 		deferred
 		end
 

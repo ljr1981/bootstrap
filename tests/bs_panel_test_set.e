@@ -86,10 +86,6 @@ feature -- Test routines
 			l_ul.last_new_li.set_text_content ("item2")
 			create l_item.make_list (Void, l_ul)
 			assert_strings_equal ("list1", "<div class=%"panel panel-default%"><ul class=%"list-group%"><li class=%"list-item%">item1</li><li class=%"list-item%">item2</li></ul></div>", l_item.html_out)
---				-- Responsive Embeds
---			create l_video
---			create l_item.make_video (Void, l_video, True)
---			assert_strings_equal ("video", "<div class=%"panel panel-default%"><div class=%"embed-responsive embed-responsive-16by9%"><video class=%"embed-responsive-item%"></video></div></div>", l_item.html_out)
 		end
 
 feature {NONE} -- Support Panel :-)
