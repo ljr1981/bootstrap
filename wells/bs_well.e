@@ -17,7 +17,6 @@ feature {NONE} -- Initialization
 	default_create
 			-- <Precursor>
 		do
-			Precursor
 			set_class_names ("well")
 		end
 

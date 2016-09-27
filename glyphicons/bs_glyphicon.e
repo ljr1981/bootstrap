@@ -1,9 +1,9 @@
 note
 	description: "[
-		Representation of an effected {BS_GLYPHICON}.
+		Representation of an effected {REPLACE_ME}.
 		]"
 
-class
+deferred class
 	BS_GLYPHICON
 
 feature -- Access

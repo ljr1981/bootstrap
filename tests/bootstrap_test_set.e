@@ -28,29 +28,6 @@ inherit
 
 feature -- Test routines
 
-	in_system
-		local
-			l_bs_button_group: BS_BUTTON_GROUP
-			l_bs_controls: BS_CONTROLS
-			l_bs_control_group: BS_CONTROL_GROUP
-			l_bs_form_button: BS_FORM_BUTTON
-			l_bs_form_group: BS_FORM_GROUP
-			l_bs_form_label: BS_FORM_LABEL
-			l_bs_glyphicon: BS_GLYPHICON
-			l_bs_col_span: BS_COL_SPAN
-			l_bs_link_image: BS_LINK_IMAGE
-			l_bs_table: BS_TABLE
-		do
-			create l_bs_button_group
-			create l_bs_controls
-			create l_bs_control_group.make ("my_id")
-			create l_bs_form_button
-			create l_bs_form_group
-			create l_bs_form_label
-			create l_bs_glyphicon
-			create l_bs_col_span.make ("sm", 12)
-		end
-
 	jumbotron_tests
 			-- New test routine
 		local
