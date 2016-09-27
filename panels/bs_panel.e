@@ -16,7 +16,11 @@ create
 	make_heading_and_footer,
 	make_table,
 	make_body_and_table,
-	make_list
+	make_list,
+	make_video,
+	make_well,
+	make_well_small,
+	make_well_large
 
 feature {NONE} -- Initialization
 
@@ -96,27 +100,57 @@ feature {NONE} -- Initialization
 			add_content (a_list)
 		end
 
---	make_video (a_body: detachable HTML_TAG; a_video: HTML_VIDEO; a_is_16_by_9: BOOLEAN)
---			--
---		local
---			l_div: HTML_DIV
---		do
---			if attached a_body as al_body then
---				make (al_body)
---			else
---				create inner_panel
---				initialize_outer_panel
---			end
---			a_video.set_class_names ("embed-responsive-item")
---			create l_div
---			if a_is_16_by_9 then
---				l_div.set_class_names ("embed-responsive embed-responsive-16by9")
---			else
---				l_div.set_class_names ("embed-responsive embed-responsive-4by3")
---			end
---			add_content (l_div)
---			l_div.add_content (a_video)
---		end
+	make_video (a_body: detachable HTML_TAG; a_video: HTML_VIDEO; a_is_16_by_9: BOOLEAN)
+			--
+		local
+			l_div: HTML_DIV
+		do
+			if attached a_body as al_body then
+				make (al_body)
+			else
+				create inner_panel
+				initialize_outer_panel
+			end
+			a_video.set_class_names ("embed-responsive-item")
+			create l_div
+			if a_is_16_by_9 then
+				l_div.set_class_names ("embed-responsive embed-responsive-16by9")
+			else
+				l_div.set_class_names ("embed-responsive embed-responsive-4by3")
+			end
+			add_content (l_div)
+			l_div.add_content (a_video)
+		end
+
+	make_well (a_content: detachable HTML_TAG)
+			--
+		do
+			set_class_names ("well")
+			create inner_panel
+			if attached a_content as al_content then
+				add_content (al_content)
+			end
+		end
+
+	make_well_small (a_content: detachable HTML_TAG)
+			--
+		do
+			set_class_names ("well well-sm")
+			create inner_panel
+			if attached a_content as al_content then
+				add_content (al_content)
+			end
+		end
+
+	make_well_large (a_content: detachable HTML_TAG)
+			--
+		do
+			set_class_names ("well well-lg")
+			create inner_panel
+			if attached a_content as al_content then
+				add_content (al_content)
+			end
+		end
 
 	initialize_outer_panel
 			--
