@@ -6,6 +6,9 @@ note
 deferred class
 	BS_BUTTON
 
+inherit
+	BS_ANY
+	
 feature {NONE} -- Initialization
 
 	make_with_text (a_text, a_style, a_size: STRING)

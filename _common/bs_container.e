@@ -8,6 +8,11 @@ class
 
 inherit
 	BS_DIV
+		undefine
+			default_create
+		end
+
+	BS_ANY
 
 create
 	make,

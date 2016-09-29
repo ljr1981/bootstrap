@@ -6,6 +6,9 @@ note
 deferred class
 	BS_GLYPHICON
 
+inherit
+	BS_ANY
+	
 feature -- Access
 
 	glyphicon: attached STRING

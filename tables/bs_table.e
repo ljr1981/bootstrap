@@ -9,6 +9,4 @@ class
 inherit
 	BS_DIV
 
-feature {NONE} -- Initialization
-
 end

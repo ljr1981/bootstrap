@@ -33,6 +33,7 @@ feature {NONE} -- Initialization
 
 	make (a_text_align: STRING; a_to_edge: BOOLEAN)
 		do
+			default_create
 			is_to_edge := a_to_edge
 			if is_to_edge then
 				set_class_names ("jumbotron text-" + a_text_align)

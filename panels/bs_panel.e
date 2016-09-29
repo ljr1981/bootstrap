@@ -8,6 +8,11 @@ class
 
 inherit
 	HTML_DIV
+		undefine
+			default_create
+		end
+
+	BS_ANY
 
 create
 	make,

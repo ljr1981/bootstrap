@@ -28,6 +28,16 @@ inherit
 
 feature -- Test routines
 
+	in_system_tests
+		local
+			l_btn_group: BS_BUTTON_GROUP
+			l_icon: BS_GLYPHICON
+			l_link_img: BS_LINK_IMAGE
+			l_table: BS_TABLE
+		do
+
+		end
+
 	jumbotron_tests
 			-- New test routine
 		local
