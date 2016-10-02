@@ -24,7 +24,7 @@ feature {NONE} -- Initialization
 	make_basic (a_title, a_text, a_link_text, a_link, a_size: STRING; a_col_span: INTEGER; a_img_src: detachable STRING)
 		local
 			l_card: HTML_DIV
-			l_img: HTML_IMG
+			l_img: BS_IMAGE
 			l_block: like card_block
 			l_title: like card_title
 			l_text: like card_text
@@ -35,10 +35,9 @@ feature {NONE} -- Initialization
 			l_card.set_class_names ("card")
 
 			if attached a_img_src as al_src then
-				create l_img.make_with_src (al_src)
-				l_img.set_class_names ("card-img-top")
+				create l_img.make_thumbnailed (al_src, "", 180, 100)
 				l_img.set_width ("100%%")
-				l_img.set_height ("180")
+				l_img.append_class_name ("card-img-top")
 				l_card.add_content (l_img)
 			end
 

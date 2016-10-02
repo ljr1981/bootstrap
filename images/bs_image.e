@@ -1,4 +1,4 @@
-note
+﻿note
 	description: "[
 		Representation of an effected {BS_IMAGE}.
 		]"
@@ -66,6 +66,55 @@ feature -- Access
 		attribute
 			Result := Current
 		end
+
+	fade_script (a_seconds: REAL): HTML_STYLE
+		local
+			l_css: STRING
+		do
+			create Result
+			l_css := fade_script_template.twin
+			l_css.replace_substring_all ("<<SECONDS>>", a_seconds.out)
+			Result.set_text_content (l_css)
+		end
+
+	fade_script_template: STRING = "[
+.img-circle, .img-rounded, .img-thumbnail {
+    -webkit-animation: fadein <<SECONDS>>s; /* Safari and Chrome */
+    -moz-animation: fadein <<SECONDS>>s; /* Firefox */
+    -ms-animation: fadein <<SECONDS>>s; /* Internet Explorer */
+    -o-animation: fadein <<SECONDS>>s; /* Opera */
+    animation: fadein <<SECONDS>>s;
+}
+    
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari and Chrome */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}?
+
+/* Opera */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}?
+]"
 
 note
 	design_intent: "[
