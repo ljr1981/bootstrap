@@ -7,6 +7,12 @@ inherit
 --			default_create
 --		end
 
+	BS
+		undefine
+			default_create,
+			out
+		end
+
 feature {NONE}
 
 --	default_create
