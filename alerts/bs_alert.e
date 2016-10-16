@@ -21,13 +21,13 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				add_content (closable_link)
+				extend (closable_link)
 			end
 
 			set_class_names ("alert alert-success")
-			add_content (new_strong)
+			extend (new_strong)
 			last_new_strong.set_text_content ("Success! ")
-			add_content (new_text)
+			extend (new_text)
 			last_new_text.set_text_content (a_message)
 		end
 
@@ -35,13 +35,13 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				add_content (closable_link)
+				extend (closable_link)
 			end
 
 			set_class_names ("alert alert-info")
-			add_content (new_strong)
+			extend (new_strong)
 			last_new_strong.set_text_content ("Information! ")
-			add_content (new_text)
+			extend (new_text)
 			last_new_text.set_text_content (a_message)
 		end
 
@@ -49,13 +49,13 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				add_content (closable_link)
+				extend (closable_link)
 			end
 
 			set_class_names ("alert alert-warning")
-			add_content (new_strong)
+			extend (new_strong)
 			last_new_strong.set_text_content ("Warning! ")
-			add_content (new_text)
+			extend (new_text)
 			last_new_text.set_text_content (a_message)
 		end
 
@@ -63,13 +63,13 @@ feature {NONE} -- Initialization
 			--
 		do
 			if a_is_closable then
-				add_content (closable_link)
+				extend (closable_link)
 			end
 
 			set_class_names ("alert alert-danger")
-			add_content (new_strong)
+			extend (new_strong)
 			last_new_strong.set_text_content ("Danger! ")
-			add_content (new_text)
+			extend (new_text)
 			last_new_text.set_text_content (a_message)
 		end
 

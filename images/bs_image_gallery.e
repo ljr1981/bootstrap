@@ -67,16 +67,16 @@ feature {NONE} -- Initialize
 			check attached {STRING} a_image.src.attr_value as al_source then
 				a_column.new_a.set_href (al_source)
 				a_column.last_new_a.set_class_names ("thumbnail")
-				a_column.add_content (a_column.last_new_a)
+				a_column.extend (a_column.last_new_a)
 			end
 
 			a_column.new_p.set_text_content (a_caption)
-			a_column.last_new_a.add_content (a_column.last_new_p)
+			a_column.last_new_a.extend (a_column.last_new_p)
 
-			a_column.last_new_a.add_content (a_image)
+			a_column.last_new_a.extend (a_image)
 
 			columns.force (a_column)
-			item.add_content (a_column)
+			item.extend (a_column)
 		end
 
 feature
@@ -95,10 +95,10 @@ feature {NONE}
 			item.set_class_names ("row")
 			new_hx.set_text_content (a_title)
 			last_new_hx.set_h1
-			add_content (last_new_hx)
+			extend (last_new_hx)
 
 			new_p.set_text_content (a_text)
-			add_content (last_new_p)
+			extend (last_new_p)
 		end
 
 ;note

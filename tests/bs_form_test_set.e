@@ -61,34 +61,34 @@ feature -- Test routines
 
 			create l_form.make ("owner_info_form", True, False)
 			create l_set
-			l_form.add_content (l_set)
+			l_form.extend (l_set)
 
 			create l_frm_group.make_as_labeled_input (l_xs_12_sm_6, "firstname", "First Name", "Your First Name")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_labeled_input (l_xs_12_sm_6, "lastname", "Last Name", "Your Last Name")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_labeled_input (l_xs_12_sm_12, "address", "Address", "Your street address")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_input_only (l_xs_6_sm_6, "address_city", "Your city")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_input_only (l_xs_6_sm_6, "address_state", "Your state")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_input_only (l_xs_6_sm_6, "address_zip", "Your ZIP code")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_frm_group.make_as_labeled_input (l_xs_12_sm_12, "email", "Email", "Your email address")
-			l_set.add_content (l_frm_group)
+			l_set.extend (l_frm_group)
 
 			create l_pull.make_pull_right
-			l_set.add_content (l_pull)
+			l_set.extend (l_pull)
 
 			create l_btn_group.make (<<["xs", 12]>>, "primary", "submit_owner", "Submit")
-			l_pull.add_content (l_btn_group)
+			l_pull.extend (l_btn_group)
 
 			assert_strings_equal ("complex_form", complex_form, l_form.html_out)
 		end

@@ -67,7 +67,7 @@ feature {NONE} -- Initialization
 			create inner_panel
 			set_class_names ("panel panel-default")
 			a_table.set_class_names ("table")
-			add_content (a_table)
+			extend (a_table)
 		end
 
 	make_body_and_table (a_body: detachable HTML_TAG; a_table: HTML_TABLE)
@@ -80,7 +80,7 @@ feature {NONE} -- Initialization
 				initialize_outer_panel
 			end
 			a_table.set_class_names ("table")
-			add_content (a_table)
+			extend (a_table)
 		end
 
 	make_list (a_body: detachable HTML_TAG; a_list: HTML_UL)
@@ -102,7 +102,7 @@ feature {NONE} -- Initialization
 					ic_ul.set_class_names ("list-group")
 				end
 			end
-			add_content (a_list)
+			extend (a_list)
 		end
 
 	make_video (a_body: detachable HTML_TAG; a_video: HTML_VIDEO; a_is_16_by_9: BOOLEAN)
@@ -123,8 +123,8 @@ feature {NONE} -- Initialization
 			else
 				l_div.set_class_names ("embed-responsive embed-responsive-4by3")
 			end
-			add_content (l_div)
-			l_div.add_content (a_video)
+			extend (l_div)
+			l_div.extend (a_video)
 		end
 
 	make_well (a_content: detachable HTML_TAG)
@@ -133,7 +133,7 @@ feature {NONE} -- Initialization
 			set_class_names ("well")
 			create inner_panel
 			if attached a_content as al_content then
-				add_content (al_content)
+				extend (al_content)
 			end
 		end
 
@@ -143,7 +143,7 @@ feature {NONE} -- Initialization
 			set_class_names ("well well-sm")
 			create inner_panel
 			if attached a_content as al_content then
-				add_content (al_content)
+				extend (al_content)
 			end
 		end
 
@@ -153,7 +153,7 @@ feature {NONE} -- Initialization
 			set_class_names ("well well-lg")
 			create inner_panel
 			if attached a_content as al_content then
-				add_content (al_content)
+				extend (al_content)
 			end
 		end
 
@@ -170,9 +170,9 @@ feature {NONE} -- Initialization
 			create inner_panel
 			inner_panel.set_class_names ("panel-body")
 			if attached a_content as al_content then
-				inner_panel.add_content (al_content)
+				inner_panel.extend (al_content)
 			end
-			add_content (inner_panel)
+			extend (inner_panel)
 		end
 
 feature -- Access
@@ -238,7 +238,7 @@ feature -- Adders
 			create header.make_with_raw_text (a_text)
 			if attached header as al_header then
 				al_header.set_class_names ("panel-heading")
-				add_content (al_header)
+				extend (al_header)
 			end
 		end
 
@@ -248,7 +248,7 @@ feature -- Adders
 			create footer.make_with_raw_text (a_text)
 			if attached footer as al_footer then
 				al_footer.set_class_names ("panel-footer")
-				add_content (al_footer)
+				extend (al_footer)
 			end
 		end
 

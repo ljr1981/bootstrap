@@ -54,7 +54,7 @@ feature {NONE} -- Initialization
 				a_rows as ic
 			loop
 				bs_rows.force (ic.item)
-				add_content (ic.item)
+				extend (ic.item)
 			end
 		end
 

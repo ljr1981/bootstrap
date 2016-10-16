@@ -61,7 +61,7 @@ feature {NONE} -- Initialization: Support
 			new_label.set_for (a_for_input_name)
 			last_new_label.set_class_names ("control-label")
 			last_new_label.set_text_content (a_label_text)
-			add_content (last_new_label)
+			extend (last_new_label)
 		end
 
 	add_input (a_for_input_name, a_placeholder_text: STRING)
@@ -72,7 +72,7 @@ feature {NONE} -- Initialization: Support
 			last_new_input.set_name (a_for_input_name)
 			last_new_input.set_id (a_for_input_name)
 			last_new_input.set_placeholder (a_placeholder_text)
-			add_content (last_new_input)
+			extend (last_new_input)
 		end
 
 end

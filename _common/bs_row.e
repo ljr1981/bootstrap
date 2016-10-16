@@ -95,7 +95,7 @@ feature {NONE} -- Initialize
 		do
 			default_create
 			columns.force (a_column)
-			item.add_content (a_column)
+			item.extend (a_column)
 		end
 
 feature -- Access

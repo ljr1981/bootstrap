@@ -80,9 +80,9 @@ feature -- Test routines
 			assert_strings_equal ("basic_with_table", "<div class=%"panel panel-default%"><table class=%"table%"></table></div>", l_item.html_out)
 				-- Lists
 			create l_ul
-			l_ul.add_content (l_ul.new_li)
+			l_ul.extend (l_ul.new_li)
 			l_ul.last_new_li.set_text_content ("item1")
-			l_ul.add_content (l_ul.new_li)
+			l_ul.extend (l_ul.new_li)
 			l_ul.last_new_li.set_text_content ("item2")
 			create l_item.make_list (Void, l_ul)
 			assert_strings_equal ("list1", "<div class=%"panel panel-default%"><ul class=%"list-group%"><li class=%"list-item%">item1</li><li class=%"list-item%">item2</li></ul></div>", l_item.html_out)

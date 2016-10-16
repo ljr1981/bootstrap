@@ -31,13 +31,13 @@ feature {NONE} -- Initialization
 			end
 			create l_container.make_fluid
 			if attached a_brand then
-				l_container.add_content (brand (a_brand.link, a_brand.text))
+				l_container.extend (brand (a_brand.link, a_brand.text))
 			end
 
 			add_nav_pads (new_ul, a_nav_pads, a_is_inverse)
 			last_new_ul.set_class_names ("nav navbar-nav")
-			l_container.add_content (last_new_ul)
-			add_content (l_container)
+			l_container.extend (last_new_ul)
+			extend (l_container)
 			default_create
 		end
 
@@ -61,10 +61,10 @@ feature {NONE} -- Initialization
 				if attached l_dropdowns as al_dropdowns then
 					create l_ul
 					l_ul.set_class_names ("dropdown-menu")
-					l_pad.add_content (l_ul)
+					l_pad.extend (l_ul)
 					add_nav_pads (l_ul, al_dropdowns, a_is_inverse)
 				end
-				a_host.add_content (l_pad)
+				a_host.extend (l_pad)
 			end
 		end
 
@@ -79,7 +79,7 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 		do
 			create Result
 			Result.set_class_names ("navbar-header")
-			Result.add_content (new_a)
+			Result.extend (new_a)
 			last_new_a.set_class_names ("navbar-brand")
 			last_new_a.set_text_content (a_text)
 			if a_link.is_empty then
@@ -116,7 +116,7 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 			if not l_class_names.is_empty then
 				Result.set_class_names (l_class_names)
 			end
-			new_a.add_content (create {HTML_TEXT}.make_with_text (a_text))
+			new_a.extend (create {HTML_TEXT}.make_with_text (a_text))
 			if a_link.is_empty then
 				last_new_a.set_href ("#")
 			else
@@ -127,9 +127,9 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 				last_new_a.set_data_toggle ("dropdown")
 				create l_span
 				l_span.set_class_names ("caret")
-				last_new_a.add_content (l_span)
+				last_new_a.extend (l_span)
 			end
-			Result.add_content (last_new_a)
+			Result.extend (last_new_a)
 		end
 
 feature -- Access

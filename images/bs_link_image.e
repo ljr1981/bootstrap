@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 			--
 		do
 			set_href (a_link)
-			add_content (image)
+			extend (image)
 			default_create
 		end
 

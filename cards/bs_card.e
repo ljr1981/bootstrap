@@ -10,7 +10,11 @@ inherit
 create
 	default_create,
 	make_basic,
-	make_titled_with_text_and_links
+	make_titled_with_text_and_links,
+	make_image,
+	make_image_only,
+	make_text_only,
+	make_text_and_image
 
 feature {NONE} -- Initialization
 
@@ -19,6 +23,78 @@ feature {NONE} -- Initialization
 		do
 			Precursor
 			set_class_names ("card")
+		end
+
+	make_image (a_image_src, a_link_text, a_link_href, a_size: STRING; a_col_span: INTEGER)
+		local
+			l_card: HTML_DIV
+			l_img: BS_IMAGE
+			l_block: like card_block
+			l_btn: BS_LINK_BUTTON
+		do
+			set_class_names ("col-" + a_size + "-" + a_col_span.out)
+				create l_card
+				l_card.set_class_names ("card")
+
+				-- Image
+			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
+				l_img.set_width ("100%%")
+				l_img.append_class_name ("card-img-top")
+			l_card.extend (l_img)
+
+				-- Link
+			l_block := card_block
+				l_block.extend (card_link (a_link_href, a_link_text))
+			l_card.extend (l_block)
+
+			extend (l_card)
+		end
+
+	make_image_only (a_image_src, a_size: STRING; a_col_span: INTEGER)
+		local
+			l_card: HTML_DIV
+			l_img: BS_IMAGE
+			l_block: like card_block
+		do
+			set_class_names ("col-" + a_size + "-" + a_col_span.out)
+				create l_card
+				l_card.set_class_names ("card")
+
+				-- Image
+			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
+				l_img.set_width ("100%%")
+				l_img.append_class_name ("card-img-top")
+			l_card.extend (l_img)
+
+			extend (l_card)
+		end
+
+	make_text_and_image (a_title, a_text, a_image_src, a_size: STRING; a_col_span: INTEGER)
+		local
+			l_card: HTML_DIV
+			l_img: BS_IMAGE
+			l_block: like card_block
+			l_title: like card_title
+			l_text: like card_text
+		do
+			set_class_names ("col-" + a_size + "-" + a_col_span.out)
+				create l_card
+				l_card.set_class_names ("card")
+
+				-- Image
+			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
+				l_img.set_width ("100%%")
+				l_img.append_class_name ("card-img-top")
+			l_card.extend (l_img)
+
+			l_block := card_block
+			l_title := card_title (a_title, 1)
+			l_text := card_text (a_text, False, False)
+			l_block.extend (l_title)
+			l_block.extend (l_text)
+			l_card.extend (l_block)
+
+			extend (l_card)
 		end
 
 	make_basic (a_title, a_text, a_link_text, a_link, a_size: STRING; a_col_span: INTEGER; a_img_src: detachable STRING)
@@ -38,20 +114,20 @@ feature {NONE} -- Initialization
 				create l_img.make_thumbnailed (al_src, "", 180, 100)
 				l_img.set_width ("100%%")
 				l_img.append_class_name ("card-img-top")
-				l_card.add_content (l_img)
+				l_card.extend (l_img)
 			end
 
 			l_block := card_block
 			l_title := card_title (a_title, 1)
 			l_text := card_text (a_text, False, False)
 			create l_btn.make_with_text_and_link (a_link_text, {BS}.btn_style_primary, {BS}.btn_size_md, a_link)
-			l_block.add_content (l_title)
-			l_block.add_content (l_text)
-			l_block.add_content (l_btn)
+			l_block.extend (l_title)
+			l_block.extend (l_text)
+			l_block.extend (l_btn)
 
-			l_card.add_content (l_block)
+			l_card.extend (l_block)
 
-			add_content (l_card)
+			extend (l_card)
 		end
 
 	make_titled_with_text_and_links (a_title, a_text: STRING; a_links: ARRAY [TUPLE [link, text: STRING]])
@@ -64,12 +140,12 @@ feature {NONE} -- Initialization
 			-- </div>
 		do
 			set_class_names ("card card-block")
-			add_content (card_title (a_title, 4))
-			add_content (card_text (a_text, False, False))
+			extend (card_title (a_title, 4))
+			extend (card_text (a_text, False, False))
 			across
 				a_links as ic
 			loop
-				add_content (card_link (ic.item.link, ic.item.text))
+				extend (card_link (ic.item.link, ic.item.text))
 			end
 		end
 
@@ -80,7 +156,31 @@ feature {NONE} -- Initialization
 			across
 				a_cards as ic
 			loop
-				add_content (ic.item)
+				extend (ic.item)
+			end
+		end
+
+	make_text_only (a_title, a_text: STRING; a_links: ARRAY [TUPLE [caption, href: STRING]]; a_col_span: INTEGER)
+		local
+			l_block: like card_block
+			l_title: like card_title
+			l_text: like card_text
+			l_link: like card_link
+		do
+			l_block := card_block
+			extend (l_block)
+				-- Title
+			l_title := card_title (a_title, a_col_span)
+			l_block.extend (l_title)
+				-- Text
+			l_text := card_text (a_text, True, True)
+			l_block.extend (l_text)
+				-- Links
+			across
+				a_links as ic
+			loop
+				l_link := card_link (ic.item.href, ic.item.caption)
+				l_block.extend (l_link)
 			end
 		end
 
@@ -131,11 +231,11 @@ feature -- Access
 		do
 			Result := new_blockquote
 			Result.set_class_names ("card-blockquote")
-			Result.add_content (new_p)
+			Result.extend (new_p)
 			last_new_p.set_text_content (a_quote)
-			Result.add_content (new_footer)
-			last_new_footer.add_content (new_small)
-			last_new_small.add_content (new_cite)
+			Result.extend (new_footer)
+			last_new_footer.extend (new_small)
+			last_new_small.extend (new_cite)
 			last_new_cite.set_text_content (a_citation)
 		end
 
@@ -172,7 +272,7 @@ feature -- Access
 			create Result
 			Result.set_class_names ("card-text")
 			if a_is_small then
-				Result.add_content (new_small)
+				Result.extend (new_small)
 				last_new_small.set_text_content (a_text)
 				if a_is_muted then
 					last_new_small.set_class_names ("text-muted")
@@ -207,7 +307,7 @@ feature -- Access
 			create l_result
 			l_result.set_class_names (l_class)
 
-			Result.add_content (l_result)
+			Result.extend (l_result)
 		end
 
 	card_header (a_text: STRING): HTML_DIV

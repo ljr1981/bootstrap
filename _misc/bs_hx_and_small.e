@@ -38,7 +38,7 @@ feature {NONE} -- Initialization
 				item.set_h6
 			end
 			item.add_text_content (a_primary_text)
-			item.add_content (create {HTML_SMALL}.make_with_raw_text (" " + a_secondary_text))
+			item.extend (create {HTML_SMALL}.make_with_raw_text (" " + a_secondary_text))
 			default_create
 		end
 

@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 			last_new_button.set_class_names ("btn btn-" + a_button_type)
 			last_new_button.set_id (a_button_id)
 			last_new_button.set_text_content (a_button_text)
-			add_content (last_new_button)
+			extend (last_new_button)
 		end
 
 feature -- Access

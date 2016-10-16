@@ -97,22 +97,22 @@ feature {NONE} -- Initialization
 							create l_image.make_thumbnailed (al_image_data.src, al_image_data.alt, a_img_height_width, a_img_height_width)
 						end
 						create l_well
-						l_well.add_content (l_image)
+						l_well.extend (l_image)
 						if attached {STRING} al_image_data.link as al_link then
 							create l_link.make_with_text_and_link (al_image_data.caption, {BS}.btn_style_default, {BS}.btn_size_lg, al_link)
-							l_well.add_content (l_link)
+							l_well.extend (l_link)
 						else
-							l_well.add_content (new_p)
+							l_well.extend (new_p)
 							last_new_p.set_text_content (al_image_data.caption)
 						end
-						al_col.add_content (l_well)
+						al_col.extend (l_well)
 					end
 				end
 			end
 
 			create l_well
-			l_well.add_content (l_images)
-			add_content (l_well)
+			l_well.extend (l_images)
+			extend (l_well)
 		end
 
 note

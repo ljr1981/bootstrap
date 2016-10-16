@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 				set_class_names ("container")
 				item := new_div
 				item.set_class_names ("jumbotron text-" + a_text_align)
-				add_content (item)
+				extend (item)
 			end
 		end
 

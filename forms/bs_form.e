@@ -52,7 +52,7 @@ feature {NONE} -- Initialization
 		do
 			make (a_form_id, a_is_vertical, a_is_autocomplete)
 			create l_set
-			add_content (l_set)
+			extend (l_set)
 
 			across
 				a_frm_groups as ic
@@ -62,12 +62,12 @@ feature {NONE} -- Initialization
 				else
 					create l_frm_group.make_as_input_only (ic.item.col_spec, ic.item.for_input_name, ic.item.placeholder_text)
 				end
-				l_set.add_content (l_frm_group)
+				l_set.extend (l_frm_group)
 			end
 
-			l_set.add_content (a_pull)
+			l_set.extend (a_pull)
 
-			a_pull.add_content (a_button)
+			a_pull.extend (a_button)
 
 			submit_button_id := a_button.button_id
 			form_id := a_form_id
