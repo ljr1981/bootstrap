@@ -7,7 +7,7 @@ inherit
 --			default_create
 --		end
 
-	BS
+	BS_FACTORY
 		undefine
 			default_create,
 			out
