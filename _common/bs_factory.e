@@ -321,7 +321,27 @@ feature -- Card: Image
 			end
 		end
 
---	make_titled_with_text_and_links,
+feature -- Card: Titled with Text and Links
+
+	new_card_titled_with_text_and_links (a_args: attached like last_new_card_titled_with_text_and_links_cache): BS_CARD
+			--	make_titled_with_text_and_links (a_title, a_text: STRING; a_links: ARRAY [TUPLE [link, text: STRING]])
+		do
+			create Result.make_titled_with_text_and_links (a_args.title, a_args.text, a_args.links)
+			last_new_card_titled_with_text_and_links := Result
+			last_new_card_titled_with_text_and_links_cache := a_args
+		end
+	last_new_card_titled_with_text_and_links_cache: detachable TUPLE [title, text: STRING; links: ARRAY [TUPLE [link, text: STRING]]]
+	last_new_card_titled_with_text_and_links: like new_card_titled_with_text_and_links
+		attribute
+			check
+				attached last_new_card_titled_with_text_and_links_cache as al_cache and then
+				attached al_cache.title as al_title and then
+				attached al_cache.text as al_text and then
+				attached al_cache.links as al_links
+			then
+				Result := new_card_titled_with_text_and_links (al_title, al_text, al_links)
+			end
+		end
 
 feature -- Card: Image Only
 
@@ -368,8 +388,29 @@ feature -- Card: Text Only
 			end
 		end
 
---	make_text_and_image
+feature -- Card: Text and Image
 
+	new_card_text_and_image (a_args: attached like last_new_card_text_and_image_cache): BS_CARD
+			-- 	make_text_and_image (a_title, a_text, a_image_src, a_size: STRING; a_col_span: INTEGER)
+		do
+			create Result.make_text_and_image (a_args.title, a_args.text, a_args.image_src, a_args.size, a_args.col_span)
+			last_new_card_text_and_image := Result
+			last_new_card_text_and_image_cache := a_args
+		end
+	last_new_card_text_and_image_cache: detachable TUPLE [title, text, image_src, size: STRING; col_span: INTEGER]
+	last_new_card_text_and_image: like new_card_text_and_image
+		attribute
+			check
+				attached last_new_card_text_and_image_cache as al_cache and then
+				attached al_cache.title as al_title and then
+				attached al_cache.text as al_text and then
+				attached al_cache.image_src as al_image_src and then
+				attached al_cache.size as al_size and then
+				attached al_cache.col_span as al_col_span
+			then
+				Result := new_card_text_and_image (al_title, al_text, al_image_src, al_size, al_col_span)
+			end
+		end
 
 feature -- Rows: For all
 
