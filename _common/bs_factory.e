@@ -4,6 +4,12 @@ class
 inherit
 	BS
 
+	HTML_FACTORY
+		undefine
+			default_create,
+			out
+		end
+
 feature -- Alert: Danger
 
 	new_alert_danger (a_args: attached like last_new_alert_danger_cache): BS_ALERT
@@ -590,6 +596,71 @@ feature -- JUMBOTRON! Right-justified
 				attached al_cache.to_edge as al_to_edge
 			then
 				Result := new_jumbotron_right_justified (al_to_edge)
+			end
+		end
+
+feature -- Section Header
+
+	new_section_header (a_args: attached like last_new_section_header_cache): BS_CONTAINER
+			--
+		do
+			new_container_fluid.set_class_names ("section-header")
+			last_new_container_fluid.set_align ("center")
+			last_new_container_fluid.extend (new_h1)
+			last_new_h1.set_text_content (a_args.title)
+			last_new_h1.set_class_names ("dark-text")
+			last_new_container_fluid.extend (new_div)
+			last_new_div.set_class_names ("colored-line")
+
+			if attached a_args.subtitle as al_subtitle then
+				last_new_container_fluid.extend (new_h3)
+				last_new_h3.set_text_content (al_subtitle)
+			end
+			Result := last_new_container_fluid
+		end
+	last_new_section_header_cache: detachable TUPLE [title: STRING; subtitle: detachable STRING]
+	last_new_section_header: like new_section_header
+		attribute
+			check
+				attached last_new_section_header_cache as al_cache and then
+				attached al_cache.title as al_title
+			then
+				Result := new_section_header (al_title, al_cache.subtitle)
+			end
+		end
+
+feature -- Misc
+
+	new_powered_by_links (a_args: attached like last_new_powered_by_links_cache): BS_CONTAINER
+			--	
+		do
+				-- Powered by ...
+			new_container_fluid.extend (new_hr)
+			last_new_container_fluid.extend (new_text)
+			last_new_text.set_text_content ("Powered by: ")
+
+				-- each links in a_args ...
+			across
+				a_args.links as ic_links
+			loop
+				last_new_container_fluid.extend (new_a)
+				last_new_a.set_href (ic_links.item.href)
+				last_new_a.set_text_content (ic_links.item.text)
+				if ic_links.cursor_index < a_args.links.count then
+					new_text.set_text_content (", ")
+					last_new_container_fluid.extend (last_new_text)
+				end
+			end
+			Result := last_new_container_fluid
+		end
+	last_new_powered_by_links_cache: detachable TUPLE [links: ARRAY [TUPLE [text, href: STRING]]]
+	last_new_powered_by_links: like new_powered_by_links
+		attribute
+			check
+				attached last_new_powered_by_links_cache as al_cache and then
+				attached al_cache.links as al_links
+			then
+				Result := new_powered_by_links (al_links)
 			end
 		end
 
