@@ -302,6 +302,34 @@ feature -- Card: Basic
 			end
 		end
 
+feature -- Card Deck: Group
+
+	new_card_deck_group (a_args: attached like last_new_card_deck_group_cache): BS_CONTAINER
+		do
+			new_container.extend (new_section_header (a_args.heading, a_args.subheading))
+			new_card_deck.do_nothing
+			across
+				a_args.cards as ic
+			loop
+				last_new_card_deck.add_card (new_card_text_and_image (ic.item.title, ic.item.text, ic.item.image_src, ic.item.size, ic.item.col_span))
+			end
+			last_new_container.extend (last_new_card_deck)
+			Result := last_new_container
+			last_new_card_deck_group_cache := a_args
+		end
+
+	last_new_card_deck_group_cache: detachable TUPLE [heading: STRING; subheading: detachable STRING; cards: ARRAY [TUPLE [title: STRING_8; text: STRING_8; image_src: STRING_8; size: STRING_8; col_span: INTEGER_32]]]
+	last_new_card_deck_group: like new_card_deck_group
+		attribute
+			check
+				attached last_new_card_deck_group_cache as al_cache and then
+				attached al_cache.heading as al_heading and then
+				attached al_cache.cards as al_cards
+			then
+				Result := new_card_deck_group (al_heading, al_cache.subheading, al_cards)
+			end
+		end
+
 feature -- Card: Image
 
 	new_card_image (a_args: attached like last_new_card_image_cache): BS_CARD
