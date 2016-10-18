@@ -29,15 +29,15 @@ feature {NONE} -- Initialization
 			else
 				set_class_names ("navbar navbar-default")
 			end
-			create l_container.make_fluid
+			new_container_fluid.do_nothing
 			if attached a_brand then
-				l_container.extend (brand (a_brand.link, a_brand.text))
+				last_new_container_fluid.extend (brand (a_brand.link, a_brand.text))
 			end
 
 			add_nav_pads (new_ul, a_nav_pads, a_is_inverse)
 			last_new_ul.set_class_names ("nav navbar-nav")
-			l_container.extend (last_new_ul)
-			extend (l_container)
+			last_new_container_fluid.extend (last_new_ul)
+			extend (last_new_container_fluid)
 			default_create
 		end
 
@@ -72,14 +72,13 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 
 	container: BS_CONTAINER
 		do
-			create Result.make_fluid
+			Result := new_container_fluid
 		end
 
 	brand (a_link, a_text: STRING): HTML_DIV
 		do
-			create Result
-			Result.set_class_names ("navbar-header")
-			Result.extend (new_a)
+			new_div.set_class_names ("navbar-header")
+			last_new_div.extend (new_a)
 			last_new_a.set_class_names ("navbar-brand")
 			last_new_a.set_text_content (a_text)
 			if a_link.is_empty then
@@ -87,6 +86,7 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 			else
 				last_new_a.set_href (a_link)
 			end
+			Result := last_new_div
 		end
 
 	nav_bar_list: HTML_UL
@@ -97,33 +97,28 @@ feature {TEST_SET_BRIDGE} -- GUI elements
 		end
 
 	nav_pad (a_link, a_text: STRING; a_is_active, a_is_dropdown: BOOLEAN): HTML_LI
-			-- <li><a href="#">Page 1-1</a></li>
+			-- <li class="nav-item"><a href="#">Page 1-1</a></li>
 		local
-			l_class_names: STRING
 			l_span: HTML_SPAN
 		do
 			create Result
-			create l_class_names.make_empty
+			Result.set_class_names ("nav-item")
 			if a_is_active then
-				l_class_names.append_string_general ("active")
+				Result.append_class_name ("active")
 			end
 			if a_is_dropdown then
-				l_class_names.append_character (' ')
-				l_class_names.append_string_general ("dropdown")
+				Result.append_class_name ("dropdown")
 			end
-			l_class_names.adjust
-
-			if not l_class_names.is_empty then
-				Result.set_class_names (l_class_names)
-			end
+				-- Link
 			new_a.extend (create {HTML_TEXT}.make_with_text (a_text))
+			last_new_a.set_class_names ("nav-link")
 			if a_link.is_empty then
 				last_new_a.set_href ("#")
 			else
 				last_new_a.set_href (a_link)
 			end
 			if a_is_dropdown then
-				last_new_a.set_class_names ("dropdown-toggle")
+				last_new_a.append_class_name ("dropdown-toggle")
 				last_new_a.set_data_toggle ("dropdown")
 				create l_span
 				l_span.set_class_names ("caret")
