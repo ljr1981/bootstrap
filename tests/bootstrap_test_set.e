@@ -167,21 +167,70 @@ feature -- Test routines
 		local
 			l_bar: BS_NAVBAR
 		do
-			create l_bar.make_menu (<<>>, {BS}.Navbar_is_default, Void)
-			assert_strings_equal ("nav_pad", "<li><a href=%"#%">Page 1-1</a></li>", l_bar.nav_pad ("", "Page 1-1", {BS}.is_not_active, False).html_out)
+				-- standard makes
+			create l_bar.make
+			assert_strings_equal ("standard_make", standard_make_string, l_bar.html_out)
 
-			create l_bar.make_menu (<<["#1", "Option 1", <<>>], ["#2", "Option 2", <<>>]>>, {BS}.Navbar_is_default, Void)
-			assert_strings_equal ("nav_make_menu_1", "<nav class=%"navbar navbar-default%"><div class=%"container-fluid%"><ul class=%"nav navbar-nav%"><li><a href=%"#1%">Option 1</a></li><li><a href=%"#2%">Option 2</a></li></ul></div></nav>", l_bar.html_out)
+			create l_bar.make_inverse
+			assert_strings_equal ("standard_make_inverse", standard_make_inverse_string, l_bar.html_out)
 
-			create l_bar.make_menu (<<
-									["#1", "Option 1", <<>>],
-									["#2", "Option 2", <<
-										["#2a", "Option 2a", <<>>],
-										["#2b", "Option 2b", <<>>]
-										>>]
-									>>, {BS}.Navbar_is_default, Void)
-			assert_strings_equal ("nav_make_menu_2", "<nav class=%"navbar navbar-default%"><div class=%"container-fluid%"><ul class=%"nav navbar-nav%"><li><a href=%"#1%">Option 1</a></li><li class=%"dropdown%"><a class=%"dropdown-toggle%"  href=%"#2%"  data-toggle=%"dropdown%">Option 2<span class=%"caret%"></span></a><ul class=%"dropdown-menu%"><li><a href=%"#2a%">Option 2a</a></li><li><a href=%"#2b%">Option 2b</a></li></ul></li></ul></div></nav>", l_bar.html_out)
+--			create l_bar.make_menu (<<>>, {BS}.Navbar_is_default, Void)
+--			assert_strings_equal ("nav_pad", nav_pad_string, l_bar.nav_pad ("", "Page 1-1", {BS}.is_not_active, False).html_out)
+
+--			create l_bar.make_menu (<<["#1", "Option 1", <<>>], ["#2", "Option 2", <<>>]>>, {BS}.Navbar_is_default, Void)
+--			assert_strings_equal ("nav_make_menu_1", nav_make_menu_1_string, l_bar.html_out)
+
+--			create l_bar.make_menu (<<
+--									["#1", "Option 1", <<>>],
+--									["#2", "Option 2", <<
+--										["#2a", "Option 2a", <<>>],
+--										["#2b", "Option 2b", <<>>]
+--										>>]
+--									>>, {BS}.Navbar_is_default, Void)
+--			assert_strings_equal ("nav_make_menu_2", nav_make_menu_2_string, l_bar.html_out)
 		end
+
+	navbar_brand_tests
+			--
+		local
+			l_brand: BS_NAVBAR_BRAND
+		do
+			create l_brand
+			assert_strings_equal ("brand_default_create", brand_default_create_string, l_brand.html_out)
+
+			create l_brand.make ("brand_text", "brand_url")
+			assert_strings_equal ("brand_make", brand_make_string, l_brand.html_out)
+		end
+
+feature {NONE} -- Implementation: Navbar support
+
+	brand_make_string: STRING = "[
+<a class="navbar-brand navbar-link"  href="brand_url">brand_text</a>
+]"
+
+	brand_default_create_string: STRING = "[
+<a class="navbar-brand navbar-link"></a>
+]"
+
+	standard_make_string: STRING = "[
+<nav class="nav"><div class="container"><div class="navbar-header"></div><div class="collapse navbar-collapse"></div></div></nav>
+]"
+
+	standard_make_inverse_string: STRING = "[
+<nav class="nav navbar-inverse"><div class="container"><div class="navbar-header"></div><div class="collapse navbar-collapse"></div></div></nav>
+]"
+
+--	nav_pad_string: STRING = "[
+--<li class="nav-item"><a class="nav-link"  href="#">Page 1-1</a></li>
+--]"
+
+--	nav_make_menu_1_string: STRING = "[
+--<nav class="navbar navbar-default"><div class="container-fluid"><ul class="nav navbar-nav"><li class="nav-item"><a class="nav-link"  href="#1">Option 1</a></li><li class="nav-item"><a class="nav-link"  href="#2">Option 2</a></li></ul></div></nav>
+--]"
+
+--	nav_make_menu_2_string: STRING = "[
+--<nav class="navbar navbar-default"><div class="container-fluid"><ul class="nav navbar-nav"><li class="nav-item"><a class="nav-link"  href="#1">Option 1</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"  href="#2"  data-toggle="dropdown">Option 2<span class="caret"></span></a><ul class="dropdown-menu"><li class="nav-item"><a class="nav-link"  href="#2a">Option 2a</a></li><li class="nav-item"><a class="nav-link"  href="#2b">Option 2b</a></li></ul></li></ul></div></nav>
+--]"
 
 end
 

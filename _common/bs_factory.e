@@ -10,6 +10,76 @@ inherit
 			out
 		end
 
+feature -- Navigation
+
+		-- navbar
+	new_navbar: BS_NAVBAR do create Result.make; last_new_navbar := Result end
+	last_new_navbar: like new_navbar attribute Result := new_navbar end
+
+	new_navbar_fixed_bottom: BS_NAVBAR do create Result.make_fixed_bottom; last_new_navbar_fixed_bottom := Result end
+	last_new_navbar_fixed_bottom: like new_navbar_fixed_bottom attribute Result := new_navbar_fixed_bottom end
+
+	new_navbar_fixed_top: BS_NAVBAR do create Result.make_fixed_top; last_new_navbar_fixed_top := Result end
+	last_new_navbar_fixed_top: like new_navbar_fixed_top attribute Result := new_navbar_fixed_top end
+
+	new_navbar_static_top: BS_NAVBAR do create Result.make_static_top; last_new_navbar_static_top := Result end
+	last_new_navbar_static_top: like new_navbar_static_top attribute Result := new_navbar_static_top end
+
+	new_navbar_inverse: BS_NAVBAR do create Result.make_inverse; last_new_navbar_inverse := Result end
+	last_new_navbar_inverse: like new_navbar_inverse attribute Result := new_navbar_inverse end
+
+	new_navbar_inverse_fixed_bottom: BS_NAVBAR do create Result.make_inverse_fixed_bottom; last_new_navbar_inverse_fixed_bottom := Result end
+	last_new_navbar_inverse_fixed_bottom: like new_navbar_inverse_fixed_bottom attribute Result := new_navbar_inverse_fixed_bottom end
+
+	new_navbar_inverse_fixed_top: BS_NAVBAR do create Result.make_inverse_fixed_top; last_new_navbar_inverse_fixed_top := Result end
+	last_new_navbar_inverse_fixed_top: like new_navbar_inverse_fixed_top attribute Result := new_navbar_inverse_fixed_top end
+
+	new_navbar_inverse_static_top: BS_NAVBAR do create Result.make_inverse_static_top; last_new_navbar_inverse_static_top := Result end
+	last_new_navbar_inverse_static_top: like new_navbar_inverse_static_top attribute Result := new_navbar_inverse_static_top end
+
+		-- navbar brand
+	new_navbar_brand: BS_NAVBAR_BRAND do create Result; last_new_navbar_brand := Result end
+	last_new_navbar_brand: like new_navbar_brand attribute Result := new_navbar_brand end
+
+	new_navbar_brand_link (a_args: attached like last_new_navbar_brand_link_cache): BS_NAVBAR_BRAND
+		do create Result.make (a_args.title, a_args.href); last_new_navbar_brand_link := Result end
+	last_new_navbar_brand_link_cache: detachable TUPLE [title, href: STRING]
+	last_new_navbar_brand_link: like new_navbar_brand_link
+		attribute
+			check
+				attached last_new_navbar_brand_link_cache as al_cache and then
+				attached al_cache.title as al_title and then
+				attached al_cache.href as al_href
+			then
+				Result := new_navbar_brand_link (al_title, al_href)
+			end
+		end
+
+		-- navbar nav (default, left, and right)
+	new_navbar_nav: BS_NAV do create Result; last_new_navbar_nav := Result end
+	last_new_navbar_nav: like new_navbar_nav attribute Result := new_navbar_nav end
+
+	new_navbar_nav_left: BS_NAV do create Result.make_left; last_new_navbar_nav_left := Result end
+	last_new_navbar_nav_left: like new_navbar_nav_left attribute Result := new_navbar_nav_left end
+
+	new_navbar_nav_right: BS_NAV do create Result.make_right; last_new_navbar_nav_right := Result end
+	last_new_navbar_nav_right: like new_navbar_nav_right attribute Result := new_navbar_nav_right end
+
+		-- navbar item (with args)
+	new_navbar_item (a_args: attached like last_new_navbar_item_cache): BS_NAV_ITEM
+		do create Result.make (a_args.title, a_args.href); last_new_navbar_item := Result end
+	last_new_navbar_item_cache: detachable TUPLE [title, href: STRING]
+	last_new_navbar_item: like new_navbar_item
+		attribute
+			check
+				attached last_new_navbar_item_cache as al_cache and then
+				attached al_cache.title as al_title and then
+				attached al_cache.href as al_href
+			then
+				Result := new_navbar_item (al_title, al_href)
+			end
+		end
+
 feature -- Alert: Danger
 
 	new_alert_danger (a_args: attached like last_new_alert_danger_cache): BS_ALERT
@@ -633,7 +703,6 @@ feature -- Section Header
 			--
 		do
 			new_container_fluid.set_class_names ("section-header")
-			last_new_container_fluid.set_align ("center")
 			last_new_container_fluid.extend (new_h1)
 			last_new_h1.set_text_content (a_args.title)
 			last_new_h1.set_class_names ("dark-text")

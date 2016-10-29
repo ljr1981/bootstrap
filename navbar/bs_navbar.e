@@ -10,134 +10,181 @@ inherit
 	HTML_NAV
 		undefine
 			default_create
+		redefine
+			extend
 		end
 
 	BS_ANY
+		undefine
+			extend
+		end
 
 create
-	make_menu
+--	make_menu,
+	make,
+	make_fixed_top,
+	make_static_top,
+	make_fixed_bottom,
+	make_inverse,
+	make_inverse_fixed_top,
+	make_inverse_static_top,
+	make_inverse_fixed_bottom
 
 feature {NONE} -- Initialization
 
-	make_menu (a_nav_pads: ARRAY [ TUPLE [ link, text: STRING; dropdowns: ARRAY [TUPLE] ] ]; a_is_inverse: BOOLEAN; a_brand: detachable TUPLE [link, text: STRING])
+	make
 			--
-		local
-			l_container: BS_CONTAINER
 		do
-			if a_is_inverse then
-				set_class_names ("navbar navbar-inverse")
-			else
-				set_class_names ("navbar navbar-default")
-			end
-			new_container_fluid.do_nothing
-			if attached a_brand then
-				last_new_container_fluid.extend (brand (a_brand.link, a_brand.text))
-			end
-
-			add_nav_pads (new_ul, a_nav_pads, a_is_inverse)
-			last_new_ul.set_class_names ("nav navbar-nav")
-			last_new_container_fluid.extend (last_new_ul)
-			extend (last_new_container_fluid)
-			default_create
+			create nav
+			set_class_names ("navbar")
+			append_class_name ("navbar-light")
+			append_class_name ("bg-faded")
+			html_content_items.force (nav)
 		end
 
-	add_nav_pads (a_host: HTML_TAG; a_nav_pads: ARRAY [TUPLE]; a_is_inverse: BOOLEAN)
-		local
-			l_pad: like nav_pad
-			l_link,
-			l_text: STRING
-			l_dropdowns: detachable ARRAY [TUPLE]
-			l_ul: HTML_UL
+	make_fixed_top
+			--
 		do
-			across
-				a_nav_pads as ic
-			loop
-				check link: attached {STRING} ic.item [1] as al_item then l_link := al_item end
-				check text: attached {STRING} ic.item [2] as al_item then l_text := al_item end
-				if (ic.item.count = 3) and then attached {ARRAY [TUPLE]} ic.item [3] as al_dropdowns and then not al_dropdowns.is_empty then
-					l_dropdowns := al_dropdowns
-				end
-				l_pad := nav_pad (l_link, l_text, a_is_inverse, attached l_dropdowns)
-				if attached l_dropdowns as al_dropdowns then
-					create l_ul
-					l_ul.set_class_names ("dropdown-menu")
-					l_pad.extend (l_ul)
-					add_nav_pads (l_ul, al_dropdowns, a_is_inverse)
-				end
-				a_host.extend (l_pad)
-			end
+			make
+			set_fixed_to_top
 		end
 
-feature {TEST_SET_BRIDGE} -- GUI elements
-
-	container: BS_CONTAINER
+	make_static_top
+			--
 		do
-			Result := new_container_fluid
+			make
+			set_static_top
 		end
 
-	brand (a_link, a_text: STRING): HTML_DIV
+	make_fixed_bottom
+			--
 		do
-			new_div.set_class_names ("navbar-header")
-			last_new_div.extend (new_a)
-			last_new_a.set_class_names ("navbar-brand")
-			last_new_a.set_text_content (a_text)
-			if a_link.is_empty then
-				last_new_a.set_href ("#")
-			else
-				last_new_a.set_href (a_link)
-			end
-			Result := last_new_div
+			make
+			set_fixed_to_bottom
 		end
 
-	nav_bar_list: HTML_UL
-			-- <ul class="nav navbar-nav">
+	make_inverse
+			--
 		do
-			create Result
-			Result.set_class_names ("nav navbar-nav")
+			make
+			remove_class_name ("navbar-default")
+			append_class_name ("navbar-inverse")
 		end
 
-	nav_pad (a_link, a_text: STRING; a_is_active, a_is_dropdown: BOOLEAN): HTML_LI
-			-- <li class="nav-item"><a href="#">Page 1-1</a></li>
-		local
-			l_span: HTML_SPAN
+	make_inverse_fixed_top
+			--
 		do
-			create Result
-			Result.set_class_names ("nav-item")
-			if a_is_active then
-				Result.append_class_name ("active")
-			end
-			if a_is_dropdown then
-				Result.append_class_name ("dropdown")
-			end
-				-- Link
-			new_a.extend (create {HTML_TEXT}.make_with_text (a_text))
-			last_new_a.set_class_names ("nav-link")
-			if a_link.is_empty then
-				last_new_a.set_href ("#")
-			else
-				last_new_a.set_href (a_link)
-			end
-			if a_is_dropdown then
-				last_new_a.append_class_name ("dropdown-toggle")
-				last_new_a.set_data_toggle ("dropdown")
-				create l_span
-				l_span.set_class_names ("caret")
-				last_new_a.extend (l_span)
-			end
-			Result.extend (last_new_a)
+			make_inverse
+			set_fixed_to_top
 		end
 
-feature -- Access
+	make_inverse_static_top
+			--
+		do
+			make_inverse
+			set_static_top
+		end
 
-	item: HTML_NAV
-			-- Reference to `item' even if in container(s).
+	make_inverse_fixed_bottom
+			--
+		do
+			make_inverse
+			set_fixed_to_bottom
+		end
+
+feature -- GUI elements
+
+	brand: detachable BS_NAVBAR_BRAND
+
+	nav: BS_NAV
+
+feature -- Basic Ops
+
+	set_fixed_to_top
+			--
+		do
+			append_class_name ("navbar-fixed-top")
+		end
+
+	set_fixed_to_bottom
+			--
+		do
+			append_class_name ("navbar-fixed-bottom")
+		end
+
+	set_static_top
+			--
+		do
+			append_class_name ("navbar-static-top")
+		end
+
+	add_p,
+	add_paragraph (a_paragraph: HTML_P)
+			-- `add_p' or `add_paragraph' to Current.
+		do
+			extend (a_paragraph)
+			paragraphs.force (a_paragraph)
+		end
+
+	paragraphs: ARRAYED_LIST [HTML_P]
+			--
 		attribute
-			Result := Current
+			create Result.make (5)
 		end
 
-note
-	design_intent: "[
-		Your_text_goes_here
-		]"
+	add_a,
+	add_link (a_link: HTML_A)
+			-- `add_a' or `add_link' `a_link' to Current.
+		do
+			nav.extend (a_link)
+			links.force (a_link)
+		end
+
+	links: ARRAYED_LIST [HTML_A]
+			--
+		attribute
+			create Result.make (5)
+		end
+
+	add_button (a_button: BS_BUTTON)
+			-- `add_button' `a_button' to Current.
+		do
+			extend (a_button)
+			buttons.force (a_button)
+		end
+
+	buttons: ARRAYED_LIST [BS_BUTTON]
+			--
+		attribute
+			create Result.make (5)
+		end
+
+	add_nav (a_nav: BS_NAV)
+			-- `add_nav' `a_nav'.
+		do
+			navs.force (a_nav)
+			nav.extend (a_nav)
+		end
+
+	navs: ARRAYED_LIST [BS_NAV]
+			-- `navs' list of {BS_NAV}.
+		attribute
+			create Result.make (5)
+		end
+
+	add_brand (a_brand: BS_NAVBAR_BRAND)
+			--
+		do
+			brand := a_brand
+			extend (a_brand)
+		end
+
+feature {TEST_SET_BRIDGE} -- HTML redefinitions
+
+	extend (a_item: attached like content_anchor)
+			-- `add_content' `a_item' to `html_content_items'
+		do
+			nav.extend (a_item)
+		end
 
 end

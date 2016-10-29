@@ -37,10 +37,10 @@ feature {NONE} -- Initialization
 				l_card.set_class_names ("card")
 
 				-- Image
-			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
-				l_img.set_width ("100%%")
-				l_img.append_class_name ("card-img-top")
-			l_card.extend (l_img)
+			new_image.set_src (a_image_src)
+			last_new_image.append_class_name ("card-img-top")
+			last_new_image.set_alt ("needs_alt_text")
+			l_card.extend (last_new_image)
 
 				-- Link
 			l_block := card_block
@@ -61,10 +61,10 @@ feature {NONE} -- Initialization
 				l_card.set_class_names ("card")
 
 				-- Image
-			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
-				l_img.set_width ("100%%")
-				l_img.append_class_name ("card-img-top")
-			l_card.extend (l_img)
+			new_image.set_src (a_image_src)
+			last_new_image.append_class_name ("card-img-top")
+			last_new_image.set_alt ("needs_alt_text")
+			l_card.extend (last_new_image)
 
 			extend (l_card)
 		end
@@ -82,10 +82,10 @@ feature {NONE} -- Initialization
 				l_card.set_class_names ("card")
 
 				-- Image
-			create l_img.make_thumbnailed (a_image_src, "", 180, 100)
-				l_img.set_width ("100%%")
-				l_img.append_class_name ("card-img-top")
-			l_card.extend (l_img)
+			new_image.set_src (a_image_src)
+			last_new_image.append_class_name ("card-img-top")
+			last_new_image.set_alt ("needs_alt_text")
+			l_card.extend (last_new_image)
 
 			l_block := card_block
 			l_title := card_title (a_title, 1)
@@ -97,7 +97,7 @@ feature {NONE} -- Initialization
 			extend (l_card)
 		end
 
-	make_basic (a_title, a_text, a_link_text, a_link, a_size: STRING; a_col_span: INTEGER; a_img_src: detachable STRING)
+	make_basic (a_title, a_text, a_link_text, a_link, a_size: STRING; a_col_span: INTEGER; a_image_src: detachable STRING)
 		local
 			l_card: HTML_DIV
 			l_img: BS_IMAGE
@@ -110,11 +110,11 @@ feature {NONE} -- Initialization
 			create l_card
 			l_card.set_class_names ("card")
 
-			if attached a_img_src as al_src then
-				create l_img.make_thumbnailed (al_src, "", 180, 100)
-				l_img.set_width ("100%%")
-				l_img.append_class_name ("card-img-top")
-				l_card.extend (l_img)
+			if attached a_image_src as al_src then
+				new_image.set_src (a_image_src)
+				last_new_image.append_class_name ("card-img-top")
+				last_new_image.set_alt ("needs_alt_text")
+				l_card.extend (last_new_image)
 			end
 
 			l_block := card_block

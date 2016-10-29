@@ -8,7 +8,7 @@ deferred class
 
 inherit
 	BS_ANY
-	
+
 feature {NONE} -- Initialization
 
 	make_with_text (a_text, a_style, a_size: STRING)
@@ -17,6 +17,20 @@ feature {NONE} -- Initialization
 			handle_in_descendant: False
 		deferred
 		end
+
+feature -- Element-related (Button|Link)
+
+feature -- Button-type-related (Button|Submit|Reset)
+
+feature -- Button-style-related (Default|Primary|Success|Info|Warning|Danger|Link)
+
+feature -- Button-size-related (Large|Default|Small|Extra small)
+
+feature -- Disabled (Enabled)
+
+feature -- Active (Deactivate)
+
+feature -- Block (not-Block)
 
 feature {NONE} -- Implementation
 
