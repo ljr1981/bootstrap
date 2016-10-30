@@ -8,11 +8,11 @@
 		</option>
 		<setting name="console_application" value="true"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
-		<library name="framework" location="$GITHUB\framework\framework.ecf"/>
-		<library name="html" location="$GitHub\html\html.ecf"/>
+		<library name="framework" location="..\framework\framework.ecf"/>
+		<library name="html" location="..\html\html.ecf"/>
 		<library name="lex" location="$ISE_LIBRARY\library\lex\lex-safe.ecf"/>
 		<library name="parse" location="$ISE_LIBRARY\library\parse\parse-safe.ecf"/>
-		<library name="test_extension" location="$GITHUB\test_extension\test_extension.ecf"/>
+		<library name="test_extension" location="..\test_extension\test_extension.ecf"/>
 		<cluster name="bootstrap" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/.git$</exclude>
