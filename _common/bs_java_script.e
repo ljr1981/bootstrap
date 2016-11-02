@@ -55,7 +55,7 @@ alert("<<ALERT_MESSAGE>>");
 ]"
 
 	redirection_js_snippet: STRING = "[
-window.location.replace('/<<REDIRECT_TO_URL>>');
+window.location.replace("<<REDIRECT_TO_URL>>");
 ]"
 
 end
