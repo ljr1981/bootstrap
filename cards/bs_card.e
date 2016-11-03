@@ -112,7 +112,7 @@ feature {NONE} -- Initialization
 
 			if attached a_image_src as al_src then
 				new_image.set_src (a_image_src)
-				last_new_image.append_class_name ("card-img-top")
+				last_new_image.set_class_names ("card-img-top")
 				last_new_image.set_alt ("needs_alt_text")
 				l_card.extend (last_new_image)
 			end

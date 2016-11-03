@@ -53,22 +53,12 @@ feature -- Test routines
 feature {NONE} -- Implementation
 
 	bar_string: STRING = "[
-<nav class="navbar navbar-light bg-faded"><ul class="nav navbar-nav"></ul></nav>
+<nav class="navbar navbar-default"><ul class="nav navbar-nav"/></nav>
 ]"
-		--<nav class="navbar navbar-light bg-faded">
-		--    <ul class="nav navbar-nav"></ul>
-		--</nav>
 
 	bar_nav_item_string: STRING = "[
-<nav class="navbar navbar-light bg-faded"><ul class="nav navbar-nav"><li class="nav-item active"  role="presentation"><a href="#">Title</a></li></ul></nav>
+<nav class="navbar navbar-default"><ul class="nav navbar-nav"><li class="nav-item active"  role="presentation"><a href="#">Title</a></li></ul></nav>
 ]"
-		--<nav class="navbar navbar-light bg-faded">
-		--    <ul class="nav navbar-nav">
-		--        <li class="nav-item active" role="presentation">
-		--        	<a href="#">Title</a>
-		--        </li>
-		--    </ul>
-		--</nav>
 
 end
 

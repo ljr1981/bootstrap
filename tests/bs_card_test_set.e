@@ -67,15 +67,15 @@ feature {NONE} -- Support
 ]"
 
 	card_inversed: STRING = "[
-<div class="card card-block card-inverse card-primary text-xs-center"></div>
+<div class="card card-block card-inverse card-primary text-xs-center"/>
 ]"
 
 	card_default_create: STRING = "[
-<div class="card"></div>
+<div class="card"/>
 ]"
 
 	card_make_basic: STRING = "[
-<div class="col-a_size-12"><div class="card"><img class="img-thumbnail card-img-top"  height="180"  src="a_img_src"  width="100%"></img><div class="card-block"><h1 class="card-title">a_title</h1><p class="card-text">a_text</p><a class="btn btn-primary btn-md"  href="a_link"  role="button">a_link_text</a></div></div></div>
+<div class="col-a_size-12"><div class="card"><img class="card-img-top"  alt="needs_alt_text"  src="a_img_src"/><div class="card-block"><h1 class="card-title">a_title</h1><p class="card-text">a_text</p><a class="btn btn-primary btn-md"  href="a_link"  role="button">a_link_text</a></div></div></div>
 ]"
 
 	card_make_titled_with_text_and_links: STRING = "[

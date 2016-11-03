@@ -75,9 +75,9 @@ feature -- Test routines
 			assert_strings_equal ("danger_no_text", danger_no_text, l_item.html_out)
 				-- Table
 			create l_item.make_table (create {HTML_TABLE})
-			assert_strings_equal ("table_only", "<div class=%"panel panel-default%"><table class=%"table%"></table></div>", l_item.html_out)
+			assert_strings_equal ("table_only", table_only_string, l_item.html_out)
 			create l_item.make_body_and_table (Void, create {HTML_TABLE})
-			assert_strings_equal ("basic_with_table", "<div class=%"panel panel-default%"><table class=%"table%"></table></div>", l_item.html_out)
+			assert_strings_equal ("basic_with_table", basic_with_table_string, l_item.html_out)
 				-- Lists
 			create l_ul
 			l_ul.extend (l_ul.new_li)
@@ -89,25 +89,70 @@ feature -- Test routines
 				-- Responsive Embeds
 			create l_video
 			create l_item.make_video (Void, l_video, True)
-			assert_strings_equal ("video", "<div class=%"panel panel-default%"><div class=%"embed-responsive embed-responsive-16by9%"><video class=%"embed-responsive-item%"></video></div></div>", l_item.html_out)
+			assert_strings_equal ("video", video_string, l_item.html_out)
 		end
 
 feature {NONE} -- Support Panel :-)
 
-	panel_basic_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-body%"></div></div>"
-	panel_basic_with_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-body%">some_text</div></div>"
-	panel_basic_header_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%"></div><div class=%"panel-body%"></div></div>"
-	panel_basic_some_header_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%">some_header</div><div class=%"panel-body%"></div></div>"
-	panel_basic_some_header_some_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%">some_header</div><div class=%"panel-body%">some_text</div></div>"
-	panel_basic_footer_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-body%"></div><div class=%"panel-footer%">some_footer</div></div>"
-	panel_basic_footer_some_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-body%">some_text</div><div class=%"panel-footer%">some_footer</div></div>"
-	panel_basic_header_footer_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%"></div><div class=%"panel-body%"></div><div class=%"panel-footer%"></div></div>"
-	panel_basic_some_header_some_footer_no_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%">some_header</div><div class=%"panel-body%"></div><div class=%"panel-footer%">some_footer</div></div>"
-	panel_basic_some_header_some_footer_some_text: STRING = "<div class=%"panel panel-default%"><div class=%"panel-heading%">some_header</div><div class=%"panel-body%">some_text</div><div class=%"panel-footer%">some_footer</div></div>"
+	table_only_string: STRING = "[
+<div class="panel panel-default"><table class="table"/></div>
+]"
 
-	primary_no_text: STRING = "<div class=%"panel panel-primary%"><div class=%"panel-body%"></div></div>"
-	danger_no_text: STRING = "<div class=%"panel panel-danger%"><div class=%"panel-body%"></div></div>"
+	basic_with_table_string: STRING = "[
+<div class="panel panel-default"><table class="table"/></div>
+]"
 
+	panel_basic_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-body"/></div>
+]"
+
+	panel_basic_with_text: STRING = "[
+<div class="panel panel-default"><div class="panel-body">some_text</div></div>
+]"
+
+	panel_basic_header_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading"/><div class="panel-body"/></div>
+]"
+
+	panel_basic_some_header_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"/></div>
+]"
+
+	panel_basic_some_header_some_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body">some_text</div></div>
+]"
+
+	panel_basic_footer_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-body"/><div class="panel-footer">some_footer</div></div>
+]"
+
+	panel_basic_footer_some_text: STRING = "[
+<div class="panel panel-default"><div class="panel-body">some_text</div><div class="panel-footer">some_footer</div></div>
+]"
+
+	panel_basic_header_footer_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading"/><div class="panel-body"/><div class="panel-footer"/></div>
+]"
+
+	panel_basic_some_header_some_footer_no_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"/><div class="panel-footer">some_footer</div></div>
+]"
+
+	panel_basic_some_header_some_footer_some_text: STRING = "[
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body">some_text</div><div class="panel-footer">some_footer</div></div>
+]"
+
+	primary_no_text: STRING = "[
+<div class="panel panel-primary"><div class="panel-body"/></div>
+]"
+
+	danger_no_text: STRING = "[
+<div class="panel panel-danger"><div class="panel-body"/></div>
+]"
+
+	video_string: STRING = "[
+<div class="panel panel-default"><div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item"/></div></div>
+]"
 
 end
 

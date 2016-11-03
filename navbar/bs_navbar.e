@@ -37,8 +37,7 @@ feature {NONE} -- Initialization
 		do
 			create nav
 			set_class_names ("navbar")
-			append_class_name ("navbar-light")
-			append_class_name ("bg-faded")
+			append_class_name ("navbar-default")
 			html_content_items.force (nav)
 		end
 

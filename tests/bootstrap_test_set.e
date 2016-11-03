@@ -44,15 +44,15 @@ feature -- Test routines
 			l_item: BS_JUMBOTRON
 		do
 			create l_item.make_content_centered (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-center%"></div>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-center%"/>", l_item.html_out)
 			create l_item.make_content_centered (False)
-			assert_strings_equal ("center", "<div class=%"container%"><div class=%"jumbotron text-center%"></div></div>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"container%"><div class=%"jumbotron text-center%"/></div>", l_item.html_out)
 
 			create l_item.make_content_left_justified (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-left%"></div>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-left%"/>", l_item.html_out)
 
 			create l_item.make_content_right_justified (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-right%"></div>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-right%"/>", l_item.html_out)
 		end
 
 	rows_and_columns_tests
@@ -60,14 +60,14 @@ feature -- Test routines
 			l_item: BS_ROW
 		do
 			create l_item.make_for_phone (<<4,4,4>>)
-			assert_strings_equal ("phone_4_4_4", "<div class=%"row%"><div class=%"col-xs-4%"></div><div class=%"col-xs-4%"></div><div class=%"col-xs-4%"></div></div>", l_item.html_out)
+			assert_strings_equal ("phone_4_4_4", "<div class=%"row%"><div class=%"col-xs-4%"/><div class=%"col-xs-4%"/><div class=%"col-xs-4%"/></div>", l_item.html_out)
 
 			create l_item.make_for_all (<<[1,3,5,7], [2,4,6,8]>>) -- generate all spans as they are all > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-sm-3 col-md-5 col-lg-7%"></div><div class=%"col-xs-2 col-sm-4 col-md-6 col-lg-8%"></div></div>", l_item.html_out)
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-sm-3 col-md-5 col-lg-7%"/><div class=%"col-xs-2 col-sm-4 col-md-6 col-lg-8%"/></div>", l_item.html_out)
 			create l_item.make_for_all (<<[1,0,0,7], [0,4,6,0]>>) -- only generate class names for spans > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-lg-7%"></div><div class=%" col-sm-4 col-md-6%"></div></div>", l_item.html_out)
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-lg-7%"/><div class=%" col-sm-4 col-md-6%"/></div>", l_item.html_out)
 			create l_item.make_for_all (<<[0,6,4,2], [0,6,4,2]>>) -- only generate class names for spans > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"></div><div class=%" col-sm-6 col-md-4 col-lg-2%"></div></div>", l_item.html_out)
+			assert_strings_equal ("all", "<div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"/><div class=%" col-sm-6 col-md-4 col-lg-2%"/></div>", l_item.html_out)
 		end
 
 	image_tests
@@ -75,13 +75,13 @@ feature -- Test routines
 			l_item: BS_IMAGE
 		do
 			create l_item.make_circular ("some.png", "alternate_desc", 100, 200)
-			assert_strings_equal ("circular", "<img class=%"img-circle%"  alt=%"alternate_desc%"  height=%"100%"  src=%"some.png%"  width=%"200%"></img>", l_item.html_out)
+			assert_strings_equal ("circular", circular_string, l_item.html_out)
 			create l_item.make_responsive ("some.png", "alternate_desc", 100, 200)
-			assert_strings_equal ("responsive", "<img class=%"img-responsive%"  alt=%"alternate_desc%"  height=%"100%"  src=%"some.png%"  width=%"200%"></img>", l_item.html_out)
+			assert_strings_equal ("responsive", responsive_string, l_item.html_out)
 			create l_item.make_rounded ("some.png", "alternate_desc", 100, 200)
-			assert_strings_equal ("rounded", "<img class=%"img-rounded%"  alt=%"alternate_desc%"  height=%"100%"  src=%"some.png%"  width=%"200%"></img>", l_item.html_out)
+			assert_strings_equal ("rounded", rounded_string, l_item.html_out)
 			create l_item.make_thumbnailed ("some.png", "alternate_desc", 100, 200)
-			assert_strings_equal ("thumbnailed", "<img class=%"img-thumbnail%"  alt=%"alternate_desc%"  height=%"100%"  src=%"some.png%"  width=%"200%"></img>", l_item.html_out)
+			assert_strings_equal ("thumbnailed", thumbnailed_string, l_item.html_out)
 		end
 
 	gallery_tests
@@ -93,7 +93,7 @@ feature -- Test routines
 						[4,"My_img_caption_2", create {BS_IMAGE}.make_circular ("image2.png", "alt_desc_2", 100, 100)],
 						[4,"My_img_caption_3", create {BS_IMAGE}.make_circular ("image3.png", "alt_desc_3", 100, 100)]
 						>>)
-			assert_strings_equal ("gallery", "<div class=%"row%"><h1>My_title</h1><p>My_caption</p><div class=%"col-md-4%"><a class=%"thumbnail%"  href=%"image1.png%"><p>My_img_caption_1</p><img class=%"img-circle%"  alt=%"alt_desc_1%"  height=%"100%"  src=%"image1.png%"  width=%"100%"></img></a></div><div class=%"col-md-4%"><a class=%"thumbnail%"  href=%"image2.png%"><p>My_img_caption_2</p><img class=%"img-circle%"  alt=%"alt_desc_2%"  height=%"100%"  src=%"image2.png%"  width=%"100%"></img></a></div><div class=%"col-md-4%"><a class=%"thumbnail%"  href=%"image3.png%"><p>My_img_caption_3</p><img class=%"img-circle%"  alt=%"alt_desc_3%"  height=%"100%"  src=%"image3.png%"  width=%"100%"></img></a></div></div>", l_gallery.html_out)
+			assert_strings_equal ("gallery", image_gallery_string, l_gallery.html_out)
 		end
 
 	image_collection_tests
@@ -104,7 +104,7 @@ feature -- Test routines
 				["src.png", "alt_text", "caption_text", {BS}.img_circle, Void],
 				["src_2.png", "alt_text_2", "caption_text_2", {BS}.img_circle, Void]
 				>>)
-			assert_strings_equal ("collection_1", "<div><div class=%"well%"><div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"><div class=%"well%"><img class=%"img-circle%"  alt=%"alt_text%"  height=%"125%"  src=%"src.png%"  width=%"125%"></img><p>caption_text</p></div></div><div class=%" col-sm-6 col-md-4 col-lg-2%"><div class=%"well%"><img class=%"img-circle%"  alt=%"alt_text_2%"  height=%"125%"  src=%"src_2.png%"  width=%"125%"></img><p>caption_text_2</p></div></div></div></div></div>", l_collection.html_out)
+			assert_strings_equal ("collection_1", collection_one_string, l_collection.html_out)
 		end
 
 	header_and_small_text_tests
@@ -129,7 +129,7 @@ feature -- Test routines
 			assert_strings_equal ("info", "<div class=%"alert alert-warning%"><strong>Warning! </strong>my_alert_message</div>", l_alert.html_out)
 
 			create l_alert.make_danger ("my_alert_message", {BS}.is_closable)
-			assert_strings_equal ("danger_closable", "<div class=%"alert alert-danger%"><a class=%"close%"  aria-label=%"close%"  href=%"#%"  data-dismiss=%"alert%">&times;</a><strong>Danger! </strong>my_alert_message</div>", l_alert.html_out)
+			assert_strings_equal ("danger_closable", danger_close_string, l_alert.html_out)
 		end
 
 	link_button_tests
@@ -157,9 +157,9 @@ feature -- Test routines
 			l_button: BS_INPUT_BUTTON
 		do
 			create l_button.make_with_text ("my_input_button", {BS}.btn_style_info, {BS}.btn_size_sm)
-			assert_strings_equal ("input_button_standard", "<input class=%"btn btn-info btn-sm%"  type=%"button%"  value=%"my_input_button%"></input>", l_button.html_out)
+			assert_strings_equal ("input_button_standard", "<input class=%"btn btn-info btn-sm%"  type=%"button%"  value=%"my_input_button%"/>", l_button.html_out)
 			create l_button.make_submit_with_text ("my_submit_button", {BS}.btn_style_info, {BS}.btn_size_sm)
-			assert_strings_equal ("input_button_submit", "<input class=%"btn btn-info btn-sm%"  type=%"submit%"  value=%"my_submit_button%"></input>", l_button.html_out)
+			assert_strings_equal ("input_button_submit", "<input class=%"btn btn-info btn-sm%"  type=%"submit%"  value=%"my_submit_button%"/>", l_button.html_out)
 		end
 
 	navbar_tests
@@ -204,20 +204,48 @@ feature -- Test routines
 
 feature {NONE} -- Implementation: Navbar support
 
+	circular_string: STRING = "[
+<img class="img-circle"  alt="alternate_desc"  height="100"  src="some.png"  width="200"/>
+]"
+
+	responsive_string: STRING = "[
+<img class="img-responsive"  alt="alternate_desc"  height="100"  src="some.png"  width="200"/>
+]"
+
+	rounded_string: STRING = "[
+<img class="img-rounded"  alt="alternate_desc"  height="100"  src="some.png"  width="200"/>
+]"
+
+	thumbnailed_string: STRING = "[
+<img class="img-thumbnail"  alt="alternate_desc"  height="100"  src="some.png"  width="200"/>
+]"
+
+	collection_one_string: STRING = "[
+<div><div class="well"><div class="row"><div class=" col-sm-6 col-md-4 col-lg-2"><div class="well"><img class="img-circle"  alt="alt_text"  height="125"  src="src.png"  width="125"/><p>caption_text</p></div></div><div class=" col-sm-6 col-md-4 col-lg-2"><div class="well"><img class="img-circle"  alt="alt_text_2"  height="125"  src="src_2.png"  width="125"/><p>caption_text_2</p></div></div></div></div></div>
+]"
+
+	image_gallery_string: STRING = "[
+<div class="row"><h1>My_title</h1><p>My_caption</p><div class="col-md-4"><a class="thumbnail"  href="image1.png"><p>My_img_caption_1</p><img class="img-circle"  alt="alt_desc_1"  height="100"  src="image1.png"  width="100"/></a></div><div class="col-md-4"><a class="thumbnail"  href="image2.png"><p>My_img_caption_2</p><img class="img-circle"  alt="alt_desc_2"  height="100"  src="image2.png"  width="100"/></a></div><div class="col-md-4"><a class="thumbnail"  href="image3.png"><p>My_img_caption_3</p><img class="img-circle"  alt="alt_desc_3"  height="100"  src="image3.png"  width="100"/></a></div></div>
+]"
+
+	danger_close_string: STRING = "[
+<div class="alert alert-danger"><a class="close"  aria-label="close"  href="#"  data-dismiss="alert">&times;</a><strong>Danger! </strong>my_alert_message</div>
+]"
+
 	brand_make_string: STRING = "[
 <a class="navbar-brand navbar-link"  href="brand_url">brand_text</a>
 ]"
 
 	brand_default_create_string: STRING = "[
-<a class="navbar-brand navbar-link"></a>
+<a class="navbar-brand navbar-link"/>
 ]"
 
 	standard_make_string: STRING = "[
-<nav class="nav"><div class="container"><div class="navbar-header"></div><div class="collapse navbar-collapse"></div></div></nav>
+<nav class="navbar navbar-default"><ul class="nav navbar-nav"/></nav>
 ]"
 
 	standard_make_inverse_string: STRING = "[
-<nav class="nav navbar-inverse"><div class="container"><div class="navbar-header"></div><div class="collapse navbar-collapse"></div></div></nav>
+<nav class="class navbar-inverse"><ul class="nav navbar-nav"/></nav>
 ]"
 
 --	nav_pad_string: STRING = "[
