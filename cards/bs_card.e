@@ -39,7 +39,7 @@ feature {NONE} -- Initialization
 				-- Image
 			new_image.set_src (a_image_src)
 			last_new_image.append_class_name ("card-img-top")
-			last_new_image.set_alt ("needs_alt_text")
+			last_new_image.set_alt ("generic_alt_text")
 			l_card.extend (last_new_image)
 
 				-- Link

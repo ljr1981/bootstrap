@@ -25,7 +25,7 @@ feature {NONE} -- Initialization
 				-- span icon
 			last_new_a.extend (new_span)
 			last_new_span.set_class_names ("icon-prev")
-			last_new_span.set_aria_hidden ("True")
+			last_new_span.set_aria_hidden ("true")
 			last_new_a.extend (new_span)
 			last_new_span.set_class_names ("sr-only")
 			last_new_span.extend (create {HTML_TEXT}.make_with_text ("Previous"))
@@ -39,7 +39,7 @@ feature {NONE} -- Initialization
 				-- span icon
 			last_new_a.extend (new_span)
 			last_new_span.set_class_names ("icon-next")
-			last_new_span.set_aria_hidden ("True")
+			last_new_span.set_aria_hidden ("true")
 			last_new_a.extend (new_span)
 			last_new_span.set_class_names ("sr-only")
 			last_new_span.extend (create {HTML_TEXT}.make_with_text ("Next"))

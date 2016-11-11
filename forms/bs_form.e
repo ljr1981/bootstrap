@@ -32,7 +32,6 @@ feature {NONE} -- Initialization
 			else
 				set_class_names ("form-horizontal")
 			end
-			set_role ("form")
 			if a_is_autocomplete then
 				set_autocomplete ("on")
 			else
