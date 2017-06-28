@@ -94,7 +94,7 @@ feature {NONE} -- Initialization
 			end
 			a_list.set_class_names ("list-group")
 			across
-				a_list.html_content_items as ic
+				a_list.contents as ic
 			loop
 				if attached {HTML_LI} ic.item as ic_li then
 					ic_li.set_class_names ("list-item")
