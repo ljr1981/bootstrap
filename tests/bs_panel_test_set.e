@@ -95,15 +95,15 @@ feature -- Test routines
 feature {NONE} -- Support Panel :-)
 
 	table_only_string: STRING = "[
-<div class="panel panel-default"><table class="table"/></div>
+ <div class="panel panel-default"><table class="table"></table></div>
 ]"
 
 	basic_with_table_string: STRING = "[
-<div class="panel panel-default"><table class="table"/></div>
+<div class="panel panel-default"><table class="table"></table></div>
 ]"
 
 	panel_basic_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-body"/></div>
+<div class="panel panel-default"><div class="panel-body"></div></div>
 ]"
 
 	panel_basic_with_text: STRING = "[
@@ -111,11 +111,11 @@ feature {NONE} -- Support Panel :-)
 ]"
 
 	panel_basic_header_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-heading"/><div class="panel-body"/></div>
+<div class="panel panel-default"><div class="panel-heading"></div><div class="panel-body"></div></div>
 ]"
 
 	panel_basic_some_header_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"/></div>
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"></div></div>
 ]"
 
 	panel_basic_some_header_some_text: STRING = "[
@@ -123,7 +123,7 @@ feature {NONE} -- Support Panel :-)
 ]"
 
 	panel_basic_footer_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-body"/><div class="panel-footer">some_footer</div></div>
+<div class="panel panel-default"><div class="panel-body"></div><div class="panel-footer">some_footer</div></div>
 ]"
 
 	panel_basic_footer_some_text: STRING = "[
@@ -131,11 +131,11 @@ feature {NONE} -- Support Panel :-)
 ]"
 
 	panel_basic_header_footer_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-heading"/><div class="panel-body"/><div class="panel-footer"/></div>
+<div class="panel panel-default"><div class="panel-heading"></div><div class="panel-body"></div><div class="panel-footer"></div></div>
 ]"
 
 	panel_basic_some_header_some_footer_no_text: STRING = "[
-<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"/><div class="panel-footer">some_footer</div></div>
+<div class="panel panel-default"><div class="panel-heading">some_header</div><div class="panel-body"></div><div class="panel-footer">some_footer</div></div>
 ]"
 
 	panel_basic_some_header_some_footer_some_text: STRING = "[
@@ -143,15 +143,15 @@ feature {NONE} -- Support Panel :-)
 ]"
 
 	primary_no_text: STRING = "[
-<div class="panel panel-primary"><div class="panel-body"/></div>
+<div class="panel panel-primary"><div class="panel-body"></div></div>
 ]"
 
 	danger_no_text: STRING = "[
-<div class="panel panel-danger"><div class="panel-body"/></div>
+<div class="panel panel-danger"><div class="panel-body"></div></div>
 ]"
 
 	video_string: STRING = "[
-<div class="panel panel-default"><div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item"/></div></div>
+<div class="panel panel-default"><div class="embed-responsive embed-responsive-16by9"><video class="embed-responsive-item"></video></div></div>
 ]"
 
 end

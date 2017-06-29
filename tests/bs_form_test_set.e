@@ -118,7 +118,10 @@ feature -- Test routines
 										no_redirection_url )
 
 			assert_strings_equal ("simpler_form", complex_form_with_data, l_form.html_out)
-			assert_strings_equal ("javascript", javascript_script_text, l_form.body_scripts [1].html_out)
+			l_form.body_script_items.start
+			check has_script: not l_form.body_script_items.is_empty and then attached l_form.body_script_items.item_for_iteration as al_body_script then
+				assert_strings_equal ("javascript", javascript_script_text, al_body_script.html_out)
+			end
 
 			create l_form.make_with_specifications (l_send_to_url, l_form_id, make_vertical, autocomplete_off,
 										<<
@@ -134,23 +137,25 @@ feature -- Test routines
 										button_group (<<xs_12>>, btn_primary, "submit_owner", Submit_text),
 										"Owner data saved.\Press OK to return home.",
 										"hello" )
-
-			assert_strings_equal ("javascript_with_alert_and_redirection", javascript_script_text_with_alert_and_redirection, l_form.body_scripts [1].html_out)
+			l_form.body_script_items.start
+			check has_script: attached l_form.body_script_items.item_for_iteration as al_body_script then
+				assert_strings_equal ("javascript_with_alert_and_redirection", javascript_script_text_with_alert_and_redirection, al_body_script.html_out)
+			end
 
 		end
 
 feature {NONE} -- Support
 
 	basic_vertical_autocomplete: STRING = "[
-<form class="form-vertical"  id="my_form_id"  action="/ajaxRequest"  autocomplete="on"  method="POST"  role="form"/>
+<form class="form-vertical"  id="my_form_id"  action="/ajaxRequest"  autocomplete="on"  method="POST"></form>
 ]"
 
 	complex_form: STRING = "[
-<form class="form-vertical"  id="owner_info_form"  action="/ajaxRequest"  autocomplete="off"  method="POST"  role="form"><fieldset><div class="form-group col-xs-12 col-sm-6"><label class="control-label">First Name</label><input class="form-control"  id="firstname"  name="firstname"  placeholder="Your First Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-6"><label class="control-label">Last Name</label><input class="form-control"  id="lastname"  name="lastname"  placeholder="Your Last Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Address</label><input class="form-control"  id="address"  name="address"  placeholder="Your street address"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_city"  name="address_city"  placeholder="Your city"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_state"  name="address_state"  placeholder="Your state"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_zip"  name="address_zip"  placeholder="Your ZIP code"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Email</label><input class="form-control"  id="email"  name="email"  placeholder="Your email address"  type="text"/></div><div class="pull-right"><div class="btn-group col-xs-12"><button class="btn btn-primary"  id="submit_owner"  type="button">Submit</button></div></div></fieldset></form>
+<form class="form-vertical"  id="owner_info_form"  action="/ajaxRequest"  autocomplete="off"  method="POST"><fieldset><div class="form-group col-xs-12 col-sm-6"><label class="control-label">First Name</label><input class="form-control"  id="firstname"  name="firstname"  placeholder="Your First Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-6"><label class="control-label">Last Name</label><input class="form-control"  id="lastname"  name="lastname"  placeholder="Your Last Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Address</label><input class="form-control"  id="address"  name="address"  placeholder="Your street address"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_city"  name="address_city"  placeholder="Your city"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_state"  name="address_state"  placeholder="Your state"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_zip"  name="address_zip"  placeholder="Your ZIP code"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Email</label><input class="form-control"  id="email"  name="email"  placeholder="Your email address"  type="text"/></div><div class="pull-right"><div class="btn-group col-xs-12"><button class="btn btn-primary"  id="submit_owner"  type="button">Submit</button></div></div></fieldset></form>
 ]"
 
 	complex_form_with_data: STRING = "[
-<form class="form-vertical"  id="owner_info_form"  action="/ajaxRequest"  autocomplete="off"  method="POST"  role="form"><fieldset><div class="form-group col-xs-12 col-sm-6"><label class="control-label">First Name</label><input class="form-control"  id="firstname"  name="firstname"  placeholder="Your First Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-6"><label class="control-label">Last Name</label><input class="form-control"  id="lastname"  name="lastname"  placeholder="Your Last Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Address</label><input class="form-control"  id="address"  name="address"  placeholder="Your street address"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_city"  name="address_city"  placeholder="Your city"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_state"  name="address_state"  placeholder="Your state"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_zip"  name="address_zip"  placeholder="Your ZIP code"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Email</label><input class="form-control"  id="email"  name="email"  placeholder="Your email address"  type="text"/></div><div class="pull-right"><div class="btn-group col-xs-12"><button class="btn btn-primary"  id="submit_owner"  type="button">Submit</button></div></div></fieldset></form>
+<form class="form-vertical"  id="owner_info_form"  action="/ajaxRequest"  autocomplete="off"  method="POST"><fieldset><div class="form-group col-xs-12 col-sm-6"><label class="control-label">First Name</label><input class="form-control"  id="firstname"  name="firstname"  placeholder="Your First Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-6"><label class="control-label">Last Name</label><input class="form-control"  id="lastname"  name="lastname"  placeholder="Your Last Name"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Address</label><input class="form-control"  id="address"  name="address"  placeholder="Your street address"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_city"  name="address_city"  placeholder="Your city"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_state"  name="address_state"  placeholder="Your state"  type="text"/></div><div class="form-group col-xs-6 col-sm-6"><input class="form-control"  id="address_zip"  name="address_zip"  placeholder="Your ZIP code"  type="text"/></div><div class="form-group col-xs-12 col-sm-12"><label class="control-label">Email</label><input class="form-control"  id="email"  name="email"  placeholder="Your email address"  type="text"/></div><div class="pull-right"><div class="btn-group col-xs-12"><button class="btn btn-primary"  id="submit_owner"  type="button">Submit</button></div></div></fieldset></form>
 ]"
 
 	javascript_script_text: STRING = "[

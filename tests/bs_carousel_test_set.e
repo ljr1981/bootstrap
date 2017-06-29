@@ -40,25 +40,25 @@ feature -- Test routines
 			l_slide, l_slide2: BS_SLIDE
 		do
 			create l_indicators.default_create
-			assert_strings_equal ("indicators_default", "<ol class=%"carousel-indicators%"/>", l_indicators.html_out)
+			assert_strings_equal ("indicators_default", "<ol class=%"carousel-indicators%"></ol>", l_indicators.html_out)
 
 			create l_indicators.make ("carousel-1", <<>>)
-			assert_strings_equal ("indicators_none", "<ol class=%"carousel-indicators%"/>", l_indicators.html_out)
+			assert_strings_equal ("indicators_none", "<ol class=%"carousel-indicators%"></ol>", l_indicators.html_out)
 
 			create l_indicators.make ("carousel-1", <<"slide1">>)
-			assert_strings_equal ("indicators_one", "<ol class=%"carousel-indicators%"><li class=%"active%"  data-slide-to=%"0%"  data-target=%"#carousel-1%"/></ol>", l_indicators.html_out)
+			assert_strings_equal ("indicators_one", indicators_one, l_indicators.html_out)
 
 			create l_indicators.make ("carousel-1", <<"slide1", "slide2">>)
-			assert_strings_equal ("indicators_two", "<ol class=%"carousel-indicators%"><li class=%"active%"  data-slide-to=%"0%"  data-target=%"#carousel-1%"/><li data-slide-to=%"1%"  data-target=%"#carousel-1%"/></ol>", l_indicators.html_out)
+			assert_strings_equal ("indicators_two", indicators_two, l_indicators.html_out)
 
 			create l_controls
 			assert_strings_equal ("controls", controls_string, l_controls.html_out)
 
 			create l_inner.default_create
-			assert_strings_equal ("inner_default", "<div class=%"carousel-inner%"  role=%"listbox%"/>", l_inner.html_out)
+			assert_strings_equal ("inner_default", "<div class=%"carousel-inner%"  role=%"listbox%"></div>", l_inner.html_out)
 
 			create l_inner.make (<<>>)
-			assert_strings_equal ("inner_none", "<div class=%"carousel-inner%"  role=%"listbox%"/>", l_inner.html_out)
+			assert_strings_equal ("inner_none", "<div class=%"carousel-inner%"  role=%"listbox%"></div>", l_inner.html_out)
 
 			create l_slide.default_create
 			assert_strings_equal ("slide_default", slide_default_string, l_slide.html_out)
@@ -83,10 +83,18 @@ feature -- Test routines
 --			assert_strings_equal ("carousel1", carousel_string, l_carousel.html_out)
 		end
 
+	indicators_one: STRING = "[
+<ol class="carousel-indicators"><li class="active"  data-slide-to="0"  data-target="#carousel-1"></li></ol>
+]"
+
+	indicators_two: STRING = "[
+<ol class="carousel-indicators"><li class="active"  data-slide-to="0"  data-target="#carousel-1"></li><li data-slide-to="1"  data-target="#carousel-1"></li></ol>
+]"
+
 feature {NONE} -- Support
 
 	controls_string: STRING = "[
-<div><a class="left carousel-control"  href="#carousel-1"  role="button"  data-slide="prev"><span class="icon-prev"  aria-hidden="True"/><span class="sr-only">Previous</span></a><a class="right carousel-control"  href="#carousel-1"  role="button"  data-slide="next"><span class="icon-next"  aria-hidden="True"/><span class="sr-only">Next</span></a></div>
+<div><a class="left carousel-control"  href="#carousel-1"  role="button"  data-slide="prev"><span class="icon-prev"  aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="right carousel-control"  href="#carousel-1"  role="button"  data-slide="next"><span class="icon-next"  aria-hidden="true"></span><span class="sr-only">Next</span></a></div>
 ]"
 
 	inner_one_string: STRING = "[
@@ -106,11 +114,11 @@ feature {NONE} -- Support
 ]"
 
 	carousel_string_none: STRING = "[
-<div class="carousel slide"  id="carousel-1"  data-ride="carousel"/>
+<div class="carousel slide"  id="carousel-1"  data-ride="carousel"></div>
 ]"
 
 	carousel_string_one: STRING = "[
-<div class="carousel slide"  id="carousel-1"  data-ride="carousel"><ol class="carousel-indicators"><li class="active"  data-slide-to="0"  data-target="#carousel-1"/></ol><div class="carousel-inner"  role="listbox"><div class="carousel-item active"><img alt="Slide image"  src="slide1"  data-holder-rendered="true"  data-src="Slide N"/></div></div><div><a class="left carousel-control"  href="#carousel-1"  role="button"  data-slide="prev"><span class="icon-prev"  aria-hidden="True"/><span class="sr-only">Previous</span></a><a class="right carousel-control"  href="#carousel-1"  role="button"  data-slide="next"><span class="icon-next"  aria-hidden="True"/><span class="sr-only">Next</span></a></div></div>
+<div class="carousel slide"  id="carousel-1"  data-ride="carousel"><ol class="carousel-indicators"><li class="active"  data-slide-to="0"  data-target="#carousel-1"></li></ol><div class="carousel-inner"  role="listbox"><div class="carousel-item active"><img alt="Slide image"  src="slide1"  data-holder-rendered="true"  data-src="Slide N"/></div></div><div><a class="left carousel-control"  href="#carousel-1"  role="button"  data-slide="prev"><span class="icon-prev"  aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="right carousel-control"  href="#carousel-1"  role="button"  data-slide="next"><span class="icon-next"  aria-hidden="true"></span><span class="sr-only">Next</span></a></div></div>
 ]"
 
 end

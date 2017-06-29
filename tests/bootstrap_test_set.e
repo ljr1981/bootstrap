@@ -44,15 +44,15 @@ feature -- Test routines
 			l_item: BS_JUMBOTRON
 		do
 			create l_item.make_content_centered (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-center%"/>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-center%"></div>", l_item.html_out)
 			create l_item.make_content_centered (False)
-			assert_strings_equal ("center", "<div class=%"container%"><div class=%"jumbotron text-center%"/></div>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"container%"><div class=%"jumbotron text-center%"></div></div>", l_item.html_out)
 
 			create l_item.make_content_left_justified (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-left%"/>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-left%"></div>", l_item.html_out)
 
 			create l_item.make_content_right_justified (True)
-			assert_strings_equal ("center", "<div class=%"jumbotron text-right%"/>", l_item.html_out)
+			assert_strings_equal ("center", "<div class=%"jumbotron text-right%"></div>", l_item.html_out)
 		end
 
 	rows_and_columns_tests
@@ -60,15 +60,31 @@ feature -- Test routines
 			l_item: BS_ROW
 		do
 			create l_item.make_for_phone (<<4,4,4>>)
-			assert_strings_equal ("phone_4_4_4", "<div class=%"row%"><div class=%"col-xs-4%"/><div class=%"col-xs-4%"/><div class=%"col-xs-4%"/></div>", l_item.html_out)
+			assert_strings_equal ("phone_4_4_4", phone_4_4_4, l_item.html_out)
 
 			create l_item.make_for_all (<<[1,3,5,7], [2,4,6,8]>>) -- generate all spans as they are all > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-sm-3 col-md-5 col-lg-7%"/><div class=%"col-xs-2 col-sm-4 col-md-6 col-lg-8%"/></div>", l_item.html_out)
+			assert_strings_equal ("all1", all1, l_item.html_out)
 			create l_item.make_for_all (<<[1,0,0,7], [0,4,6,0]>>) -- only generate class names for spans > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%"col-xs-1 col-lg-7%"/><div class=%" col-sm-4 col-md-6%"/></div>", l_item.html_out)
+			assert_strings_equal ("all2", all2, l_item.html_out)
 			create l_item.make_for_all (<<[0,6,4,2], [0,6,4,2]>>) -- only generate class names for spans > 0
-			assert_strings_equal ("all", "<div class=%"row%"><div class=%" col-sm-6 col-md-4 col-lg-2%"/><div class=%" col-sm-6 col-md-4 col-lg-2%"/></div>", l_item.html_out)
+			assert_strings_equal ("all3", all3, l_item.html_out)
 		end
+
+	all1: STRING = "[
+<div class="row"><div class="col-xs-1 col-sm-3 col-md-5 col-lg-7"></div><div class="col-xs-2 col-sm-4 col-md-6 col-lg-8"></div></div>
+]"
+
+	all2: STRING = "[
+<div class="row"><div class="col-xs-1 col-lg-7"></div><div class=" col-sm-4 col-md-6"></div></div>
+]"
+
+	all3: STRING = "[
+<div class="row"><div class=" col-sm-6 col-md-4 col-lg-2"></div><div class=" col-sm-6 col-md-4 col-lg-2"></div></div>
+]"
+
+	phone_4_4_4: STRING = "[
+<div class="row"><div class="col-xs-4"></div><div class="col-xs-4"></div><div class="col-xs-4"></div></div>
+]"
 
 	image_tests
 		local
@@ -237,15 +253,15 @@ feature {NONE} -- Implementation: Navbar support
 ]"
 
 	brand_default_create_string: STRING = "[
-<a class="navbar-brand navbar-link"/>
+<a class="navbar-brand navbar-link"></a>
 ]"
 
 	standard_make_string: STRING = "[
-<nav class="navbar navbar-default"><ul class="nav navbar-nav"/></nav>
+<nav class="navbar navbar-default"><ul class="nav navbar-nav"></ul></nav>
 ]"
 
 	standard_make_inverse_string: STRING = "[
-<nav class="class navbar-inverse"><ul class="nav navbar-nav"/></nav>
+<nav class="class navbar-inverse"><ul class="nav navbar-nav"></ul></nav>
 ]"
 
 --	nav_pad_string: STRING = "[

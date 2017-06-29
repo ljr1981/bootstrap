@@ -53,7 +53,7 @@ feature -- Test routines
 feature {NONE} -- Implementation
 
 	bar_string: STRING = "[
-<nav class="navbar navbar-default"><ul class="nav navbar-nav"/></nav>
+<nav class="navbar navbar-default"><ul class="nav navbar-nav"></ul></nav>
 ]"
 
 	bar_nav_item_string: STRING = "[

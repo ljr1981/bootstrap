@@ -67,11 +67,11 @@ feature {NONE} -- Support
 ]"
 
 	card_inversed: STRING = "[
-<div class="card card-block card-inverse card-primary text-xs-center"/>
+<div class="card card-block card-inverse card-primary text-xs-center"></div>
 ]"
 
 	card_default_create: STRING = "[
-<div class="card"/>
+<div class="card"></div>
 ]"
 
 	card_make_basic: STRING = "[

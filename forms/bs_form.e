@@ -76,7 +76,7 @@ feature {NONE} -- Initialization
 
 			l_script_text := json_send_script (submit_button_id, form_id, send_to_url, alert_message, redirection_url)
 			create l_script.make_with_javascript (l_script_text)
-			body_scripts.force (l_script)
+			add_script_body_item (l_script)
 		end
 
 feature -- Access
