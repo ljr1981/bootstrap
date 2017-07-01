@@ -36,7 +36,7 @@ feature -- Scripts
 jQuery(function($){
 		$("#<<SUBMIT_BUTTON_ID>>").on('click', function(){
 			var frmOwnerInfo = $("#<<FORM_ID>>");
-			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeObject());
+			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeArray());
 			// send ajax
 			$.ajax({
 				url: '/<<SEND_TO_URL>>',

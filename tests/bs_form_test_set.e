@@ -162,7 +162,7 @@ feature {NONE} -- Support
 <script>jQuery(function($){
 		$("#submit_owner").on('click', function(){
 			var frmOwnerInfo = $("#owner_info_form");
-			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeObject());
+			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeArray());
 			// send ajax
 			$.ajax({
 				url: '/ownerinfo',
@@ -180,7 +180,7 @@ feature {NONE} -- Support
 <script>jQuery(function($){
 		$("#submit_owner").on('click', function(){
 			var frmOwnerInfo = $("#owner_info_form");
-			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeObject());
+			var dataOwnerInfo = JSON.stringify(frmOwnerInfo.serializeArray());
 			// send ajax
 			$.ajax({
 				url: '/ownerinfo',

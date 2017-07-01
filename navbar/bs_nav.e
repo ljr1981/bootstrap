@@ -2,7 +2,7 @@ class
 	BS_NAV
 
 inherit
-	HTML_UL
+	HTML_NAV
 		redefine
 			default_create
 		end

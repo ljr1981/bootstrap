@@ -124,7 +124,7 @@ feature -- Factories
 			l_div2 := new_div.twin
 			Result.add_content (l_div2)
 				l_div2.set_class_names ("dropdown-menu")
-				l_div2.set_attribute_manual ("aria-laelledby", a_id, True)
+				l_div2.set_attribute_manual ("aria-labelledby", a_id, True)
 
 				across
 					a_links as ic
