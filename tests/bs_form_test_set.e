@@ -118,6 +118,7 @@ feature -- Test routines
 										no_redirection_url )
 
 			assert_strings_equal ("simpler_form", complex_form_with_data, l_form.html_out)
+			l_form.body_script_items_refresh
 			l_form.body_script_items.start
 			check has_script: not l_form.body_script_items.is_empty and then attached l_form.body_script_items.item_for_iteration as al_body_script then
 				assert_strings_equal ("javascript", javascript_script_text, al_body_script.html_out)
@@ -137,6 +138,7 @@ feature -- Test routines
 										button_group (<<xs_12>>, btn_primary, "submit_owner", Submit_text),
 										"Owner data saved.\Press OK to return home.",
 										"hello" )
+			l_form.body_script_items_refresh
 			l_form.body_script_items.start
 			check has_script: attached l_form.body_script_items.item_for_iteration as al_body_script then
 				assert_strings_equal ("javascript_with_alert_and_redirection", javascript_script_text_with_alert_and_redirection, al_body_script.html_out)

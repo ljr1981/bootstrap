@@ -51,7 +51,6 @@ feature -- Factories
 				loop
 					last_new_ul.add_content (ic.item)
 				end
-			Result.add_content (navbar_form_item)
 		end
 
 	navbar_form_item: HTML_FORM

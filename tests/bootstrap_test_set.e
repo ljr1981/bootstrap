@@ -257,11 +257,11 @@ feature {NONE} -- Implementation: Navbar support
 ]"
 
 	standard_make_string: STRING = "[
-<nav class="navbar navbar-default"><ul class="nav navbar-nav"></ul></nav>
+<nav class="navbar navbar-default"><nav class="nav navbar-nav"></nav></nav>
 ]"
 
 	standard_make_inverse_string: STRING = "[
-<nav class="class navbar-inverse"><ul class="nav navbar-nav"></ul></nav>
+<nav class="class navbar-inverse"><nav class="nav navbar-nav"></nav></nav>
 ]"
 
 --	nav_pad_string: STRING = "[
