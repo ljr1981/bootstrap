@@ -41,6 +41,7 @@ feature -- Test routines
 			l_bar: BS_NAVBAR
 			l_nav: BS_NAV
 			l_nav_item: BS_NAV_ITEM
+			l_factory: BS_NAVBAR_FACTORY
 		do
 				-- Basic
 			assert_strings_equal ("new_navbar", bar_string, new_navbar.html_out)
