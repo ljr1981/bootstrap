@@ -12,7 +12,7 @@
 			<void_safety support="transitional" use="transitional"/>
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
-		<library name="framework" location="..\framework\framework.ecf"/>
+		<library name="framework" location="$GITHUB\Framework\framework.ecf"/>
 		<library name="html" location="..\html\html.ecf"/>
 		<library name="lex" location="$ISE_LIBRARY\library\lex\lex-safe.ecf"/>
 		<library name="parse" location="$ISE_LIBRARY\library\parse\parse-safe.ecf"/>
